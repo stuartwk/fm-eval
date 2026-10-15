@@ -1,0 +1,52 @@
+Logging to results/20261005-175204.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=full_merge)
+[run 1/4] go-order-cancel
+  attempt 1: build_fail  (4733 in, 884 out, 31.33s)
+[run 1/4] go-order-get
+  attempt 1: test_fail  (4704 in, 775 out, 26.95s)
+[run 1/4] go-products-paginate
+  attempt 1: pass  (4516 in, 594 out, 20.99s)
+[run 1/4] go-review-handlers
+  attempt 1: build_fail  (5418 in, 890 out, 34.57s)
+[run 1/4] go-test-review-store
+  attempt 1: build_fail  (3417 in, 888 out, 25.95s)
+[run 2/4] go-order-cancel
+  attempt 1: build_fail  (4733 in, 893 out, 31.89s)
+[run 2/4] go-order-get
+  attempt 1: pass  (4704 in, 794 out, 28.09s)
+[run 2/4] go-products-paginate
+  attempt 1: pass  (4516 in, 594 out, 21.04s)
+[run 2/4] go-review-handlers
+  attempt 1: build_fail  (5418 in, 849 out, 32.73s)
+[run 2/4] go-test-review-store
+  attempt 1: build_fail  (3417 in, 930 out, 27.56s)
+[run 3/4] go-order-cancel
+  attempt 1: build_fail  (4733 in, 885 out, 31.55s)
+[run 3/4] go-order-get
+  attempt 1: pass  (4704 in, 793 out, 27.98s)
+[run 3/4] go-products-paginate
+  attempt 1: pass  (4516 in, 594 out, 21.63s)
+[run 3/4] go-review-handlers
+  attempt 1: build_fail  (5418 in, 806 out, 31.65s)
+[run 3/4] go-test-review-store
+  attempt 1: build_fail  (3417 in, 1093 out, 33.63s)
+[run 4/4] go-order-cancel
+  attempt 1: build_fail  (4733 in, 903 out, 32.44s)
+[run 4/4] go-order-get
+  attempt 1: test_fail  (4704 in, 775 out, 27.05s)
+[run 4/4] go-products-paginate
+  attempt 1: pass  (4516 in, 602 out, 22.39s)
+[run 4/4] go-review-handlers
+  attempt 1: build_fail  (5418 in, 643 out, 27.45s)
+[run 4/4] go-test-review-store
+  attempt 1: build_fail  (3417 in, 860 out, 26.1s)
+
+=== Summary (graded raw) ===
+go: pass@1 6/20 (30%)   pass-with-feedback 6/20 (30%)
+go: pass@1 after fixer 6/20 (30%)
+
+Per task:
+  go-order-cancel              fail fail fail fail
+  go-order-get                 fail pass@1 pass@1 fail
+  go-products-paginate         pass@1 pass@1 pass@1 pass@1
+  go-review-handlers           fail fail fail fail
+  go-test-review-store         fail fail fail fail

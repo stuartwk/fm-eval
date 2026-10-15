@@ -1,0 +1,26 @@
+id = "go-review-handlers"
+lang = "go"
+kind = "new_file"
+tier = "easy"
+instruction = """
+Create review_handlers.go with HTTP handlers for product reviews. The
+ReviewStore already exists and is available as s.reviews.
+
+- Add a method reviewRoutes(mux *http.ServeMux) that registers:
+  GET  /products/{id}/reviews  -> handleListProductReviews
+  POST /products/{id}/reviews  -> handleCreateReview
+- Both endpoints return a 404 if the product does not exist.
+- GET returns the product's reviews, paginated with ?limit= and ?offset=
+  exactly like the users list endpoint.
+- POST accepts {"user_id", "rating", "body"} and returns 201 with the
+  created review. Validate it with a createReviewRequest.validate()
+  method: user_id is required, rating must be from 1 to 5, and body is
+  optional but at most 500 characters. If user_id does not match an
+  existing user, respond like the orders endpoint does for an unknown user.
+
+Do not modify any other file. Follow the conventions of the existing handlers.
+"""
+context = ["respond.go", "request.go", "review_store.go", "user_handlers.go", "order_handlers.go"]
+target = "review_handlers.go"
+hidden_test = "hidden_review_handlers_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

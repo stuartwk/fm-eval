@@ -1,0 +1,15 @@
+id = "go-products-filter-instock"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+Let GET /products filter by an optional ?in_stock= query parameter:
+"true" returns only products with stock greater than 0, "false" returns
+only products with zero stock. Any other non-empty value is a 400 with the
+bad_query error code. Without the parameter, behave exactly as now. The
+response format stays the same (not paginated).
+"""
+context = ["product_store.go", "respond.go"]
+target = "product_handlers.go"
+hidden_test = "hidden_products_filter_instock_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

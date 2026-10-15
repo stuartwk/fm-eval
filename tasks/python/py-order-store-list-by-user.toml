@@ -1,0 +1,13 @@
+id = "py-order-store-list-by-user"
+lang = "python"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add a list_by_user(user_id) method to OrderStore that returns that user's
+orders sorted by ID (an empty list if there are none). Follow the style of
+ReviewStore.list_by_product.
+"""
+context = ["review_store.py"]
+target = "order_store.py"
+hidden_test = "test_hidden_order_store_list_by_user.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

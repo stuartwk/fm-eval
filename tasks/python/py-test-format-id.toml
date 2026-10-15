@@ -1,0 +1,27 @@
+id = "py-test-format-id"
+lang = "python"
+kind = "new_file"
+tier = "test"
+instruction = """
+Write test_ids.py with a table-driven test for the format_id function in
+ids.py. format_id(prefix, n) builds IDs like "usr_000001": the prefix, an
+underscore, and n zero-padded to six digits. Cover several prefixes and
+numbers, including 0, a six-digit number, and a number longer than six
+digits.
+"""
+context = ["ids.py", "test_request.py"]
+target = "test_ids.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]
+mutant_test_cmd = ["python3", "-m", "unittest", "test_ids"]
+
+[[mutants]]
+file = "mutants/ids_pad5.py"
+replaces = "ids.py"
+
+[[mutants]]
+file = "mutants/ids_dash.py"
+replaces = "ids.py"
+
+[[mutants]]
+file = "mutants/ids_offbyone.py"
+replaces = "ids.py"

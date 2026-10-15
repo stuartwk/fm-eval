@@ -1,0 +1,13 @@
+id = "py-user-create-normalize-email"
+lang = "python"
+kind = "modify"
+tier = "easy"
+instruction = """
+When creating a user, normalize the email before validating and storing it:
+trim surrounding whitespace and lowercase it. Keep everything else about
+user creation unchanged.
+"""
+context = ["user_store.py", "respond.py"]
+target = "user_handlers.py"
+hidden_test = "test_hidden_user_create_normalize_email.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

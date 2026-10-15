@@ -1,0 +1,12 @@
+id = "go-review-store-delete"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add a Delete(id string) bool method to ReviewStore that removes the review
+and reports whether it existed. Follow the style of UserStore.Delete.
+"""
+context = ["user_store.go"]
+target = "review_store.go"
+hidden_test = "hidden_review_store_delete_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

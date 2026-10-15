@@ -1,0 +1,14 @@
+id = "py-orders-filter-status"
+lang = "python"
+kind = "modify"
+tier = "medium"
+instruction = """
+Let GET /orders filter by status with an optional ?status= query parameter
+(pending, paid, or cancelled). Filter before paginating, so the page total
+counts only matching orders. Any other non-empty value is a 400 with the
+bad_query error code. Without the parameter, behave exactly as now.
+"""
+context = ["order_store.py", "request.py", "respond.py"]
+target = "order_handlers.py"
+hidden_test = "test_hidden_orders_filter_status.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

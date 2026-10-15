@@ -1,0 +1,13 @@
+id = "go-user-store-update-name"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add an UpdateName(id, name string) (User, bool) method to UserStore. It sets
+the user's name, stores it, and returns the updated user. It reports false
+if the user does not exist. Follow the style of OrderStore.SetStatus.
+"""
+context = ["order_store.go"]
+target = "user_store.go"
+hidden_test = "hidden_user_store_update_name_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

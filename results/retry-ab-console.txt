@@ -1,0 +1,60 @@
+16 seeds x 3 styles, logging to results/retry-ab-20261005-145249.jsonl
+seed  0 go-order-cancel        build_fail   full      -> not rescued
+seed  0 go-order-cancel        build_fail   annotated -> not rescued
+seed  0 go-order-cancel        build_fail   fresh     -> not rescued
+seed  1 go-order-get           test_fail    full      -> not rescued
+seed  1 go-order-get           test_fail    annotated -> not rescued
+seed  1 go-order-get           test_fail    fresh     -> not rescued
+seed  2 go-review-handlers     build_fail   full      -> not rescued
+seed  2 go-review-handlers     build_fail   annotated -> not rescued
+seed  2 go-review-handlers     build_fail   fresh     -> not rescued
+seed  3 go-test-review-store   build_fail   full      -> not rescued
+seed  3 go-test-review-store   build_fail   annotated -> not rescued
+seed  3 go-test-review-store   build_fail   fresh     -> not rescued
+seed  4 go-order-cancel        build_fail   full      -> not rescued
+seed  4 go-order-cancel        build_fail   annotated -> not rescued
+seed  4 go-order-cancel        build_fail   fresh     -> not rescued
+seed  5 go-order-get           test_fail    full      -> not rescued
+seed  5 go-order-get           test_fail    annotated -> not rescued
+seed  5 go-order-get           test_fail    fresh     -> not rescued
+seed  6 go-review-handlers     build_fail   full      -> not rescued
+seed  6 go-review-handlers     build_fail   annotated -> not rescued
+seed  6 go-review-handlers     build_fail   fresh     -> not rescued
+seed  7 go-test-review-store   build_fail   full      -> not rescued
+seed  7 go-test-review-store   build_fail   annotated -> not rescued
+seed  7 go-test-review-store   build_fail   fresh     -> not rescued
+seed  8 go-order-cancel        test_fail    full      -> not rescued
+seed  8 go-order-cancel        test_fail    annotated -> not rescued
+seed  8 go-order-cancel        test_fail    fresh     -> not rescued
+seed  9 go-order-get           test_fail    full      -> not rescued
+seed  9 go-order-get           test_fail    annotated -> not rescued
+seed  9 go-order-get           test_fail    fresh     -> not rescued
+seed 10 go-review-handlers     build_fail   full      -> not rescued
+seed 10 go-review-handlers     build_fail   annotated -> not rescued
+seed 10 go-review-handlers     build_fail   fresh     -> not rescued
+seed 11 go-test-review-store   build_fail   full      -> not rescued
+seed 11 go-test-review-store   build_fail   annotated -> not rescued
+seed 11 go-test-review-store   build_fail   fresh     -> not rescued
+seed 12 go-order-cancel        build_fail   full      -> not rescued
+seed 12 go-order-cancel        build_fail   annotated -> not rescued
+seed 12 go-order-cancel        build_fail   fresh     -> not rescued
+seed 13 go-order-get           test_fail    full      -> not rescued
+seed 13 go-order-get           test_fail    annotated -> not rescued
+seed 13 go-order-get           test_fail    fresh     -> not rescued
+seed 14 go-review-handlers     build_fail   full      -> not rescued
+seed 14 go-review-handlers     build_fail   annotated -> not rescued
+seed 14 go-review-handlers     build_fail   fresh     -> not rescued
+seed 15 go-test-review-store   build_fail   full      -> not rescued
+seed 15 go-test-review-store   build_fail   annotated -> not rescued
+seed 15 go-test-review-store   build_fail   fresh     -> not rescued
+
+=== Rescue rate by retry style ===
+full      raw 0/16   with fixer 0/16
+annotated raw 0/16   with fixer 0/16
+fresh     raw 0/16   with fixer 0/16
+
+Per task (raw rescues / seeds):
+  go-order-cancel        full=0/4  annotated=0/4  fresh=0/4
+  go-order-get           full=0/4  annotated=0/4  fresh=0/4
+  go-review-handlers     full=0/4  annotated=0/4  fresh=0/4
+  go-test-review-store   full=0/4  annotated=0/4  fresh=0/4

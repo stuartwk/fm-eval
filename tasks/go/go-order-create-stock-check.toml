@@ -1,0 +1,15 @@
+id = "go-order-create-stock-check"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+When creating an order, reject any item whose quantity is greater than the
+product's current stock. Respond with 422, the validation_failed error code,
+and the message "items[N].quantity: exceeds stock" where N is the item's
+index, in the same style as the existing unknown-product check. Do not
+store the order in that case. Do not change stock levels.
+"""
+context = ["product_store.go", "respond.go"]
+target = "order_handlers.go"
+hidden_test = "hidden_order_create_stock_check_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

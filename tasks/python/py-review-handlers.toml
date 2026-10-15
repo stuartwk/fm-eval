@@ -1,0 +1,27 @@
+id = "py-review-handlers"
+lang = "python"
+kind = "new_file"
+tier = "easy"
+instruction = """
+Create review_handlers.py with HTTP handlers for product reviews. The
+ReviewStore already exists and is available as s.reviews.
+
+- Add a function review_routes(s, router) that registers:
+  GET  /products/{id}/reviews  -> handle_list_product_reviews
+  POST /products/{id}/reviews  -> handle_create_review
+- Both endpoints return a 404 if the product does not exist.
+- GET returns the product's reviews, paginated with ?limit= and ?offset=
+  exactly like the users list endpoint.
+- POST accepts {"user_id", "rating", "body"} and returns 201 with the
+  created review. Validate it with a CreateReviewRequest dataclass whose
+  validate() method checks: user_id is required, rating must be from 1 to
+  5, and body is optional but at most 500 characters. If user_id does not
+  match an existing user, respond like the orders endpoint does for an
+  unknown user.
+
+Do not modify any other file. Follow the conventions of the existing handlers.
+"""
+context = ["respond.py", "request.py", "review_store.py", "user_handlers.py", "order_handlers.py"]
+target = "review_handlers.py"
+hidden_test = "test_hidden_review_handlers.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

@@ -1,0 +1,17 @@
+id = "go-order-cancel"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+Add an endpoint to cancel an order: POST /orders/{id}/cancel.
+- 404 if the order does not exist.
+- Only pending orders can be cancelled. For any other status, respond
+  with 409 and the conflict error code.
+- On success, set the status to cancelled and return the updated order
+  with status 200.
+Register the route in orderRoutes and follow the existing conventions.
+"""
+context = ["respond.go", "order_store.go", "user_handlers.go"]
+target = "order_handlers.go"
+hidden_test = "hidden_order_cancel_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

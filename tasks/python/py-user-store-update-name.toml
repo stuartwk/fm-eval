@@ -1,0 +1,13 @@
+id = "py-user-store-update-name"
+lang = "python"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add an update_name(id, name) method to UserStore. It sets the user's name,
+stores it, and returns the updated user, or None if the user does not
+exist. Follow the style of OrderStore.set_status.
+"""
+context = ["order_store.py"]
+target = "user_store.py"
+hidden_test = "test_hidden_user_store_update_name.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

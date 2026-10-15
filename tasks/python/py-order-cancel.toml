@@ -1,0 +1,17 @@
+id = "py-order-cancel"
+lang = "python"
+kind = "modify"
+tier = "medium"
+instruction = """
+Add an endpoint to cancel an order: POST /orders/{id}/cancel.
+- 404 if the order does not exist.
+- Only pending orders can be cancelled. For any other status, respond
+  with 409 and the conflict error code.
+- On success, set the status to cancelled and return the updated order
+  with status 200.
+Register the route in order_routes and follow the existing conventions.
+"""
+context = ["respond.py", "order_store.py", "user_handlers.py"]
+target = "order_handlers.py"
+hidden_test = "test_hidden_order_cancel.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

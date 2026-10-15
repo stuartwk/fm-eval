@@ -1,0 +1,15 @@
+id = "go-product-store-adjust-stock"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+Add an AdjustStock(id string, delta int) (Product, bool) method to
+ProductStore. It adds delta (which may be negative) to the product's stock,
+stores it, and returns the updated product. It reports false and leaves the
+stock unchanged if the product does not exist or if the stock would drop
+below zero. Follow the style of the other store methods.
+"""
+context = ["order_store.go"]
+target = "product_store.go"
+hidden_test = "hidden_product_store_adjust_stock_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

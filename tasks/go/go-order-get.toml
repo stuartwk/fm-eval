@@ -1,0 +1,14 @@
+id = "go-order-get"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add an endpoint to fetch a single order: GET /orders/{id}.
+Return the order with status 200, or a 404 if no order has that ID.
+Register the route in orderRoutes and follow the conventions of the
+existing handlers (see the users handlers for a similar endpoint).
+"""
+context = ["respond.go", "order_store.go", "user_handlers.go"]
+target = "order_handlers.go"
+hidden_test = "hidden_order_get_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

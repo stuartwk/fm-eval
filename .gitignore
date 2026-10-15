@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+tools/gomerge/gomerge
+tools/goapi/goapi
+.DS_Store

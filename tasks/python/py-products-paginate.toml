@@ -1,0 +1,14 @@
+id = "py-products-paginate"
+lang = "python"
+kind = "modify"
+tier = "medium"
+instruction = """
+GET /products currently returns every product at once. Paginate it with
+?limit= and ?offset= the same way the users list endpoint does, including
+the page object in the response and a 400 for invalid query parameters.
+Keep the other product handlers unchanged.
+"""
+context = ["respond.py", "request.py", "user_handlers.py"]
+target = "product_handlers.py"
+hidden_test = "test_hidden_products_paginate.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

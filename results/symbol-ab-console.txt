@@ -1,0 +1,98 @@
+##### SYMBOL NO SKILL
+Logging to results/20261005-162531.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=symbol)
+[run 1/4] go-order-get
+  attempt 1: build_fail  (2893 in, 445 out, 11.6s)
+[run 2/4] go-order-get
+  attempt 1: build_fail  (2893 in, 428 out, 12.09s)
+[run 3/4] go-order-get
+  attempt 1: build_fail  (2893 in, 661 out, 16.39s)
+[run 4/4] go-order-get
+  attempt 1: build_fail  (2893 in, 798 out, 19.56s)
+
+=== Summary (graded raw) ===
+go: pass@1 0/4 (0%)   pass-with-feedback 0/4 (0%)
+go: pass@1 after fixer 0/4 (0%)
+
+Per task:
+  go-order-get                 fail fail fail fail
+Logging to results/20261005-162633.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=symbol)
+[run 1/4] go-order-cancel
+  attempt 1: build_fail  (2922 in, 1526 out, 39.34s)
+[run 2/4] go-order-cancel
+  attempt 1: build_fail  (2922 in, 439 out, 11.78s)
+[run 3/4] go-order-cancel
+  attempt 1: build_fail  (2922 in, 916 out, 22.77s)
+[run 4/4] go-order-cancel
+  attempt 1: build_fail  (2922 in, 815 out, 20.2s)
+
+=== Summary (graded raw) ===
+go: pass@1 0/4 (0%)   pass-with-feedback 0/4 (0%)
+go: pass@1 after fixer 0/4 (0%)
+
+Per task:
+  go-order-cancel              fail fail fail fail
+Logging to results/20261005-162808.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=symbol)
+[run 1/4] go-products-paginate
+  attempt 1: build_fail  (2733 in, 251 out, 6.96s)
+[run 2/4] go-products-paginate
+  attempt 1: merge_fail  (2733 in, 926 out, 22.43s)
+[run 3/4] go-products-paginate
+  attempt 1: build_fail  (2733 in, 484 out, 12.07s)
+[run 4/4] go-products-paginate
+  attempt 1: build_fail  (2733 in, 573 out, 14.34s)
+
+=== Summary (graded raw) ===
+go: pass@1 0/4 (0%)   pass-with-feedback 0/4 (0%)
+go: pass@1 after fixer 0/4 (0%)
+
+Per task:
+  go-products-paginate         fail fail fail fail
+##### SYMBOL WITH SKILL
+Logging to results/20261005-162905.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=symbol)
+[run 1/4] go-order-get
+  attempt 1: test_fail  (3486 in, 219 out, 7.33s)
+[run 2/4] go-order-get
+  attempt 1: build_fail  (3486 in, 218 out, 7.23s)
+[run 3/4] go-order-get
+  attempt 1: build_fail  (3486 in, 215 out, 6.95s)
+[run 4/4] go-order-get
+  attempt 1: build_fail  (3486 in, 218 out, 7.21s)
+
+=== Summary (graded raw) ===
+go: pass@1 0/4 (0%)   pass-with-feedback 0/4 (0%)
+go: pass@1 after fixer 0/4 (0%)
+
+Per task:
+  go-order-get                 fail fail fail fail
+Logging to results/20261005-162935.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=symbol)
+[run 1/4] go-order-cancel
+  attempt 1: build_fail  (3515 in, 1405 out, 40.63s)
+[run 2/4] go-order-cancel
+  attempt 1: build_fail  (3515 in, 608 out, 15.95s)
+[run 3/4] go-order-cancel
+  attempt 1: build_fail  (3515 in, 1421 out, 40.9s)
+[run 4/4] go-order-cancel
+  attempt 1: build_fail  (3515 in, 1010 out, 28.47s)
+
+=== Summary (graded raw) ===
+go: pass@1 0/4 (0%)   pass-with-feedback 0/4 (0%)
+go: pass@1 after fixer 0/4 (0%)
+
+Per task:
+  go-order-cancel              fail fail fail fail
+Logging to results/20261005-163142.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=symbol)
+[run 1/4] go-products-paginate
+  attempt 1: build_fail  (3326 in, 648 out, 16.07s)
+[run 2/4] go-products-paginate
+  attempt 1: build_fail  (3326 in, 648 out, 15.97s)
+[run 3/4] go-products-paginate
+  attempt 1: build_fail  (3326 in, 648 out, 16.01s)
+[run 4/4] go-products-paginate
+  attempt 1: build_fail  (3326 in, 648 out, 16.04s)
+
+=== Summary (graded raw) ===
+go: pass@1 0/4 (0%)   pass-with-feedback 0/4 (0%)
+go: pass@1 after fixer 0/4 (0%)
+
+Per task:
+  go-products-paginate         fail fail fail fail

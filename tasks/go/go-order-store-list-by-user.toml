@@ -1,0 +1,13 @@
+id = "go-order-store-list-by-user"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add a ListByUser(userID string) []Order method to OrderStore that returns
+that user's orders sorted by ID, and an empty (non-nil) slice if there are
+none. Follow the style of ReviewStore.ListByProduct.
+"""
+context = ["review_store.go"]
+target = "order_store.go"
+hidden_test = "hidden_order_store_list_by_user_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

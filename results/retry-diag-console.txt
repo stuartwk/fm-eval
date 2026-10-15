@@ -1,0 +1,149 @@
+58 seeds x 2 styles, logging to results/retry-ab-20261010-083951.jsonl
+seed  0 go-health-handler              build_fail      fresh      -> not rescued
+seed  0 go-health-handler              build_fail      diagnostic -> not rescued
+seed  1 go-order-store-list-by-user    test_fail       fresh      -> not rescued
+seed  1 go-order-store-list-by-user    test_fail       diagnostic -> not rescued
+seed  2 go-orders-filter-status        build_fail      fresh      -> not rescued
+seed  2 go-orders-filter-status        build_fail      diagnostic -> not rescued
+seed  3 go-products-filter-instock     test_fail       fresh      -> not rescued
+seed  3 go-products-filter-instock     test_fail       diagnostic -> not rescued
+seed  4 go-review-handlers             build_fail      fresh      -> not rescued
+seed  4 go-review-handlers             build_fail      diagnostic -> not rescued
+seed  5 go-test-format-id              fail_on_correct fresh      -> not rescued
+seed  5 go-test-format-id              fail_on_correct diagnostic -> not rescued
+seed  6 go-test-order-store            build_fail      fresh      -> not rescued
+seed  6 go-test-order-store            build_fail      diagnostic -> not rescued
+seed  7 go-test-review-store           build_fail      fresh      -> not rescued
+seed  7 go-test-review-store           build_fail      diagnostic -> not rescued
+seed  8 go-user-create-normalize-email test_fail       fresh      -> rescued@3
+seed  8 go-user-create-normalize-email test_fail       diagnostic -> rescued@2
+seed  9 go-user-orders-handler         build_fail      fresh      -> not rescued
+seed  9 go-user-orders-handler         build_fail      diagnostic -> not rescued
+seed 10 go-health-handler              build_fail      fresh      -> not rescued
+seed 10 go-health-handler              build_fail      diagnostic -> not rescued
+seed 11 go-order-store-list-by-user    test_fail       fresh      -> not rescued
+seed 11 go-order-store-list-by-user    test_fail       diagnostic -> not rescued
+seed 12 go-orders-filter-status        test_fail       fresh      -> not rescued
+seed 12 go-orders-filter-status        test_fail       diagnostic -> not rescued
+seed 13 go-products-filter-instock     test_fail       fresh      -> not rescued
+seed 13 go-products-filter-instock     test_fail       diagnostic -> not rescued
+seed 14 go-review-handlers             build_fail      fresh      -> not rescued
+seed 14 go-review-handlers             build_fail      diagnostic -> not rescued
+seed 15 go-test-format-id              fail_on_correct fresh      -> not rescued
+seed 15 go-test-format-id              fail_on_correct diagnostic -> not rescued
+seed 16 go-test-order-store            build_fail      fresh      -> not rescued
+seed 16 go-test-order-store            build_fail      diagnostic -> not rescued
+seed 17 go-test-review-store           build_fail      fresh      -> not rescued
+seed 17 go-test-review-store           build_fail      diagnostic -> not rescued
+seed 18 go-user-create-normalize-email test_fail       fresh      -> rescued@3
+seed 18 go-user-create-normalize-email test_fail       diagnostic -> not rescued
+seed 19 go-user-orders-handler         build_fail      fresh      -> not rescued
+seed 19 go-user-orders-handler         build_fail      diagnostic -> not rescued
+seed 20 go-health-handler              build_fail      fresh      -> not rescued
+seed 20 go-health-handler              build_fail      diagnostic -> not rescued
+seed 21 go-order-cancel                build_fail      fresh      -> rescued@3
+seed 21 go-order-cancel                build_fail      diagnostic -> rescued@2
+seed 22 go-order-store-list-by-user    test_fail       fresh      -> not rescued
+seed 22 go-order-store-list-by-user    test_fail       diagnostic -> not rescued
+seed 23 go-orders-filter-status        test_fail       fresh      -> not rescued
+seed 23 go-orders-filter-status        test_fail       diagnostic -> not rescued
+seed 24 go-products-filter-instock     test_fail       fresh      -> not rescued
+seed 24 go-products-filter-instock     test_fail       diagnostic -> not rescued
+seed 25 go-review-handlers             build_fail      fresh      -> not rescued
+seed 25 go-review-handlers             build_fail      diagnostic -> not rescued
+seed 26 go-test-format-id              fail_on_correct fresh      -> not rescued
+seed 26 go-test-format-id              fail_on_correct diagnostic -> not rescued
+seed 27 go-test-order-store            build_fail      fresh      -> not rescued
+seed 27 go-test-order-store            build_fail      diagnostic -> not rescued
+seed 28 go-test-review-store           build_fail      fresh      -> not rescued
+seed 28 go-test-review-store           build_fail      diagnostic -> not rescued
+seed 29 go-user-lookup-by-email        build_fail      fresh      -> rescued@2
+seed 29 go-user-lookup-by-email        build_fail      diagnostic -> rescued@3
+seed 30 go-user-orders-handler         build_fail      fresh      -> not rescued
+seed 30 go-user-orders-handler         build_fail      diagnostic -> not rescued
+seed 31 py-health-handler              build_fail      fresh      -> not rescued
+seed 31 py-health-handler              build_fail      diagnostic -> rescued@3
+seed 32 py-order-cancel                test_fail       fresh      -> not rescued
+seed 32 py-order-cancel                test_fail       diagnostic -> not rescued
+seed 33 py-orders-filter-status        test_fail       fresh      -> not rescued
+seed 33 py-orders-filter-status        test_fail       diagnostic -> not rescued
+seed 34 py-products-filter-instock     test_fail       fresh      -> not rescued
+seed 34 py-products-filter-instock     test_fail       diagnostic -> not rescued
+seed 35 py-review-handlers             test_fail       fresh      -> not rescued
+seed 35 py-review-handlers             test_fail       diagnostic -> not rescued
+seed 36 py-test-format-id              fail_on_correct fresh      -> not rescued
+seed 36 py-test-format-id              fail_on_correct diagnostic -> not rescued
+seed 37 py-test-order-store            build_fail      fresh      -> not rescued
+seed 37 py-test-order-store            build_fail      diagnostic -> not rescued
+seed 38 py-user-orders-handler         build_fail      fresh      -> not rescued
+seed 38 py-user-orders-handler         build_fail      diagnostic -> not rescued
+seed 39 py-health-handler              test_fail       fresh      -> not rescued
+seed 39 py-health-handler              test_fail       diagnostic -> rescued@2
+seed 40 py-order-cancel                test_fail       fresh      -> not rescued
+seed 40 py-order-cancel                test_fail       diagnostic -> not rescued
+seed 41 py-orders-filter-status        test_fail       fresh      -> not rescued
+seed 41 py-orders-filter-status        test_fail       diagnostic -> not rescued
+seed 42 py-products-filter-instock     test_fail       fresh      -> not rescued
+seed 42 py-products-filter-instock     test_fail       diagnostic -> not rescued
+seed 43 py-review-handlers             test_fail       fresh      -> not rescued
+seed 43 py-review-handlers             test_fail       diagnostic -> not rescued
+seed 44 py-test-format-id              fail_on_correct fresh      -> not rescued
+seed 44 py-test-format-id              fail_on_correct diagnostic -> not rescued
+seed 45 py-test-order-store            fail_on_correct fresh      -> not rescued
+seed 45 py-test-order-store            fail_on_correct diagnostic -> not rescued
+seed 46 py-test-review-store           missed_mutant   fresh      -> not rescued
+seed 46 py-test-review-store           missed_mutant   diagnostic -> not rescued
+seed 47 py-user-orders-handler         build_fail      fresh      -> not rescued
+seed 47 py-user-orders-handler         build_fail      diagnostic -> not rescued
+seed 48 py-health-handler              test_fail       fresh      -> rescued@2
+seed 48 py-health-handler              test_fail       diagnostic -> not rescued
+seed 49 py-order-cancel                test_fail       fresh      -> not rescued
+seed 49 py-order-cancel                test_fail       diagnostic -> not rescued
+seed 50 py-orders-filter-status        test_fail       fresh      -> not rescued
+seed 50 py-orders-filter-status        test_fail       diagnostic -> not rescued
+seed 51 py-products-filter-instock     test_fail       fresh      -> not rescued
+seed 51 py-products-filter-instock     test_fail       diagnostic -> not rescued
+seed 52 py-review-handlers             test_fail       fresh      -> not rescued
+seed 52 py-review-handlers             test_fail       diagnostic -> not rescued
+seed 53 py-test-format-id              fail_on_correct fresh      -> not rescued
+seed 53 py-test-format-id              fail_on_correct diagnostic -> not rescued
+seed 54 py-test-order-store            fail_on_correct fresh      -> not rescued
+seed 54 py-test-order-store            fail_on_correct diagnostic -> not rescued
+seed 55 py-test-review-store           fail_on_correct fresh      -> rescued@2
+seed 55 py-test-review-store           fail_on_correct diagnostic -> not rescued
+seed 56 py-user-create-normalize-email test_fail       fresh      -> rescued@3
+seed 56 py-user-create-normalize-email test_fail       diagnostic -> rescued@2
+seed 57 py-user-orders-handler         build_fail      fresh      -> not rescued
+seed 57 py-user-orders-handler         build_fail      diagnostic -> not rescued
+
+=== Rescue rate by retry style ===
+fresh      7/58
+diagnostic 6/58
+
+Seeds with a diagnosis: 38/58. Rescues on those:
+fresh      2/38
+diagnostic 3/38
+
+Per task (rescues / seeds):
+  go-health-handler              fresh=0/3  diagnostic=0/3
+  go-order-cancel                fresh=1/1  diagnostic=1/1
+  go-order-store-list-by-user    fresh=0/3  diagnostic=0/3
+  go-orders-filter-status        fresh=0/3  diagnostic=0/3
+  go-products-filter-instock     fresh=0/3  diagnostic=0/3
+  go-review-handlers             fresh=0/3  diagnostic=0/3
+  go-test-format-id              fresh=0/3  diagnostic=0/3
+  go-test-order-store            fresh=0/3  diagnostic=0/3
+  go-test-review-store           fresh=0/3  diagnostic=0/3
+  go-user-create-normalize-email fresh=2/2  diagnostic=1/2
+  go-user-lookup-by-email        fresh=1/1  diagnostic=1/1
+  go-user-orders-handler         fresh=0/3  diagnostic=0/3
+  py-health-handler              fresh=1/3  diagnostic=2/3
+  py-order-cancel                fresh=0/3  diagnostic=0/3
+  py-orders-filter-status        fresh=0/3  diagnostic=0/3
+  py-products-filter-instock     fresh=0/3  diagnostic=0/3
+  py-review-handlers             fresh=0/3  diagnostic=0/3
+  py-test-format-id              fresh=0/3  diagnostic=0/3
+  py-test-order-store            fresh=0/3  diagnostic=0/3
+  py-test-review-store           fresh=1/2  diagnostic=0/2
+  py-user-create-normalize-email fresh=1/1  diagnostic=1/1
+  py-user-orders-handler         fresh=0/3  diagnostic=0/3

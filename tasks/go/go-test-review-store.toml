@@ -1,0 +1,31 @@
+id = "go-test-review-store"
+lang = "go"
+kind = "new_file"
+tier = "test"
+instruction = """
+Write review_store_test.go with unit tests for ReviewStore. Cover:
+- Create assigns sequential IDs ("rev_000001", "rev_000002", ...) and
+  Get returns the stored review.
+- Get on a missing ID reports false.
+- ListByProduct returns only that product's reviews, sorted by ID, and
+  an empty slice for a product with no reviews.
+Use table-driven tests in the same style as the existing tests. Test the
+store directly; do not go through HTTP.
+"""
+context = ["review_store.go", "request_test.go"]
+target = "review_store_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]
+
+# The model's test must pass against the real fixture and fail (on an
+# assertion, not a build error) when each mutant replaces review_store.go.
+[[mutants]]
+file = "mutants/review_store_nofilter.go"
+replaces = "review_store.go"
+
+[[mutants]]
+file = "mutants/review_store_desc.go"
+replaces = "review_store.go"
+
+[[mutants]]
+file = "mutants/review_store_noseq.go"
+replaces = "review_store.go"

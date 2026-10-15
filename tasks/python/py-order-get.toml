@@ -1,0 +1,14 @@
+id = "py-order-get"
+lang = "python"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add an endpoint to fetch a single order: GET /orders/{id}.
+Return the order with status 200, or a 404 if no order has that ID.
+Register the route in order_routes and follow the conventions of the
+existing handlers (see the users handlers for a similar endpoint).
+"""
+context = ["respond.py", "order_store.py", "user_handlers.py"]
+target = "order_handlers.py"
+hidden_test = "test_hidden_order_get.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

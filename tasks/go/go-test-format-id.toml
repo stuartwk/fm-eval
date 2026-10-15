@@ -1,0 +1,27 @@
+id = "go-test-format-id"
+lang = "go"
+kind = "new_file"
+tier = "test"
+instruction = """
+Write server_test.go with a table-driven test named TestFormatID for the
+formatID function in server.go. formatID(prefix, n) builds IDs like
+"usr_000001": the prefix, an underscore, and n zero-padded to six digits.
+Cover several prefixes and numbers, including 0, a six-digit number, and a
+number longer than six digits.
+"""
+context = ["server.go", "request_test.go"]
+target = "server_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]
+mutant_test_cmd = ["go", "test", "-count=1", "-run", "^TestFormatID$", "./..."]
+
+[[mutants]]
+file = "mutants/server_pad5.go"
+replaces = "server.go"
+
+[[mutants]]
+file = "mutants/server_dash.go"
+replaces = "server.go"
+
+[[mutants]]
+file = "mutants/server_offbyone.go"
+replaces = "server.go"

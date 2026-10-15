@@ -1,0 +1,15 @@
+id = "py-order-create-stock-check"
+lang = "python"
+kind = "modify"
+tier = "medium"
+instruction = """
+When creating an order, reject any item whose quantity is greater than the
+product's current stock. Respond with 422, the validation_failed error code,
+and the message "items[N].quantity: exceeds stock" where N is the item's
+index, in the same style as the existing unknown-product check. Do not
+store the order in that case. Do not change stock levels.
+"""
+context = ["product_store.py", "respond.py"]
+target = "order_handlers.py"
+hidden_test = "test_hidden_order_create_stock_check.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

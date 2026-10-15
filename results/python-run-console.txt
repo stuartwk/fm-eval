@@ -1,0 +1,269 @@
+##### PY BASELINE
+Logging to results/20261005-212410.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=full)
+[run 1/3] py-health-handler
+  attempt 1: test_fail  (1951 in, 169 out, 4.85s)
+[run 1/3] py-order-cancel
+  attempt 1: test_fail  (2686 in, 853 out, 19.95s)
+[run 1/3] py-order-create-stock-check
+  attempt 1: test_fail  (1786 in, 726 out, 15.04s)
+[run 1/3] py-order-get
+  attempt 1: test_fail  (2657 in, 795 out, 18.07s)
+[run 1/3] py-order-store-list-by-user
+  attempt 1: pass  (1153 in, 585 out, 10.53s)
+[run 1/3] py-orders-filter-status
+  attempt 1: test_fail  (2697 in, 726 out, 16.7s)
+[run 1/3] py-product-store-adjust-stock
+  attempt 1: pass  (1135 in, 466 out, 9.65s)
+[run 1/3] py-products-filter-instock
+  attempt 1: test_fail  (1564 in, 503 out, 10.18s)
+[run 1/3] py-products-paginate
+  attempt 1: test_fail  (2680 in, 561 out, 13.78s)
+[run 1/3] py-review-handlers
+  attempt 1: test_fail  (3449 in, 632 out, 16.74s)
+[run 1/3] py-review-store-delete
+  attempt 1: pass  (1065 in, 416 out, 7.81s)
+[run 1/3] py-test-format-id
+  attempt 1: fail_on_correct  (878 in, 197 out, 4.2s)
+[run 1/3] py-test-order-store
+  attempt 1: fail_on_correct  (1360 in, 530 out, 11.68s)
+[run 1/3] py-test-review-store
+  attempt 1: fail_on_correct  (1244 in, 588 out, 12.03s)
+[run 1/3] py-user-create-normalize-email
+  attempt 1: pass  (1816 in, 722 out, 15.46s)
+[run 1/3] py-user-lookup-by-email
+  attempt 1: test_fail  (1878 in, 818 out, 18.0s)
+[run 1/3] py-user-orders-handler
+  attempt 1: test_fail  (2717 in, 276 out, 8.19s)
+[run 1/3] py-user-store-update-name
+  attempt 1: pass  (1211 in, 517 out, 9.78s)
+[run 2/3] py-health-handler
+  attempt 1: test_fail  (1951 in, 180 out, 5.09s)
+[run 2/3] py-order-cancel
+  attempt 1: test_fail  (2686 in, 865 out, 20.24s)
+[run 2/3] py-order-create-stock-check
+  attempt 1: pass  (1786 in, 768 out, 16.2s)
+[run 2/3] py-order-get
+  attempt 1: test_fail  (2657 in, 817 out, 18.68s)
+[run 2/3] py-order-store-list-by-user
+  attempt 1: pass  (1153 in, 585 out, 10.63s)
+[run 2/3] py-orders-filter-status
+  attempt 1: test_fail  (2697 in, 726 out, 16.78s)
+[run 2/3] py-product-store-adjust-stock
+  attempt 1: pass  (1135 in, 466 out, 9.09s)
+[run 2/3] py-products-filter-instock
+  attempt 1: test_fail  (1564 in, 503 out, 9.58s)
+[run 2/3] py-products-paginate
+  attempt 1: test_fail  (2680 in, 561 out, 13.2s)
+[run 2/3] py-review-handlers
+  attempt 1: test_fail  (3449 in, 637 out, 16.58s)
+[run 2/3] py-review-store-delete
+  attempt 1: pass  (1065 in, 416 out, 7.68s)
+[run 2/3] py-test-format-id
+  attempt 1: fail_on_correct  (878 in, 152 out, 3.45s)
+[run 2/3] py-test-order-store
+  attempt 1: fail_on_correct  (1360 in, 812 out, 16.54s)
+[run 2/3] py-test-review-store
+  attempt 1: fail_on_correct  (1244 in, 628 out, 12.32s)
+[run 2/3] py-user-create-normalize-email
+  attempt 1: pass  (1816 in, 722 out, 15.29s)
+[run 2/3] py-user-lookup-by-email
+  attempt 1: test_fail  (1878 in, 820 out, 18.05s)
+[run 2/3] py-user-orders-handler
+  attempt 1: test_fail  (2717 in, 383 out, 10.42s)
+[run 2/3] py-user-store-update-name
+  attempt 1: pass  (1211 in, 517 out, 9.6s)
+[run 3/3] py-health-handler
+  attempt 1: test_fail  (1951 in, 239 out, 6.58s)
+[run 3/3] py-order-cancel
+  attempt 1: test_fail  (2686 in, 879 out, 20.33s)
+[run 3/3] py-order-create-stock-check
+  attempt 1: test_fail  (1786 in, 726 out, 15.08s)
+[run 3/3] py-order-get
+  attempt 1: test_fail  (2657 in, 797 out, 18.27s)
+[run 3/3] py-order-store-list-by-user
+  attempt 1: pass  (1153 in, 585 out, 10.54s)
+[run 3/3] py-orders-filter-status
+  attempt 1: test_fail  (2697 in, 726 out, 16.78s)
+[run 3/3] py-product-store-adjust-stock
+  attempt 1: pass  (1135 in, 465 out, 8.89s)
+[run 3/3] py-products-filter-instock
+  attempt 1: test_fail  (1564 in, 503 out, 9.61s)
+[run 3/3] py-products-paginate
+  attempt 1: test_fail  (2680 in, 561 out, 13.16s)
+[run 3/3] py-review-handlers
+  attempt 1: test_fail  (3449 in, 628 out, 16.41s)
+[run 3/3] py-review-store-delete
+  attempt 1: pass  (1065 in, 416 out, 7.75s)
+[run 3/3] py-test-format-id
+  attempt 1: fail_on_correct  (878 in, 160 out, 3.64s)
+[run 3/3] py-test-order-store
+  attempt 1: fail_on_correct  (1360 in, 677 out, 13.78s)
+[run 3/3] py-test-review-store
+  attempt 1: fail_on_correct  (1244 in, 744 out, 13.9s)
+[run 3/3] py-user-create-normalize-email
+  attempt 1: pass  (1816 in, 738 out, 15.63s)
+[run 3/3] py-user-lookup-by-email
+  attempt 1: test_fail  (1878 in, 697 out, 15.33s)
+[run 3/3] py-user-orders-handler
+  attempt 1: test_fail  (2717 in, 450 out, 11.47s)
+[run 3/3] py-user-store-update-name
+  attempt 1: pass  (1211 in, 517 out, 9.6s)
+
+=== Summary (graded raw) ===
+python: pass@1 16/54 (30%)   pass-with-feedback 16/54 (30%)
+python: pass@1 after fixer 16/54 (30%)
+
+Per task:
+  py-health-handler            fail fail fail
+  py-order-cancel              fail fail fail
+  py-order-create-stock-check  fail pass@1 fail
+  py-order-get                 fail fail fail
+  py-order-store-list-by-user  pass@1 pass@1 pass@1
+  py-orders-filter-status      fail fail fail
+  py-product-store-adjust-stock pass@1 pass@1 pass@1
+  py-products-filter-instock   fail fail fail
+  py-products-paginate         fail fail fail
+  py-review-handlers           fail fail fail
+  py-review-store-delete       pass@1 pass@1 pass@1
+  py-test-format-id            fail fail fail
+  py-test-order-store          fail fail fail
+  py-test-review-store         fail fail fail
+  py-user-create-normalize-email pass@1 pass@1 pass@1
+  py-user-lookup-by-email      fail fail fail
+  py-user-orders-handler       fail fail fail
+  py-user-store-update-name    pass@1 pass@1 pass@1
+##### PY SKILL
+Logging to results/20261005-214103.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=full)
+[run 1/3] py-health-handler
+  attempt 1: build_fail  (2569 in, 125 out, 4.59s)
+[run 1/3] py-order-cancel
+  attempt 1: test_fail  (3304 in, 933 out, 23.16s)
+[run 1/3] py-order-create-stock-check
+  attempt 1: pass  (2404 in, 768 out, 17.29s)
+[run 1/3] py-order-get
+  attempt 1: test_fail  (3275 in, 800 out, 18.91s)
+[run 1/3] py-order-store-list-by-user
+  attempt 1: pass  (1771 in, 590 out, 12.14s)
+[run 1/3] py-orders-filter-status
+  attempt 1: test_fail  (3315 in, 906 out, 22.77s)
+[run 1/3] py-product-store-adjust-stock
+  attempt 1: pass  (1753 in, 464 out, 9.77s)
+[run 1/3] py-products-filter-instock
+  attempt 1: test_fail  (2182 in, 598 out, 13.89s)
+[run 1/3] py-products-paginate
+  attempt 1: test_fail  (3298 in, 561 out, 13.82s)
+[run 1/3] py-review-handlers
+  attempt 1: test_fail  (4067 in, 597 out, 20.74s)
+[run 1/3] py-review-store-delete
+  attempt 1: pass  (1683 in, 421 out, 8.37s)
+[run 1/3] py-test-format-id
+  attempt 1: fail_on_correct  (1496 in, 219 out, 5.07s)
+[run 1/3] py-test-order-store
+  attempt 1: build_fail  (1978 in, 744 out, 18.05s)
+[run 1/3] py-test-review-store
+  attempt 1: fail_on_correct  (1862 in, 584 out, 14.27s)
+[run 1/3] py-user-create-normalize-email
+  attempt 1: pass  (2434 in, 722 out, 17.19s)
+[run 1/3] py-user-lookup-by-email
+  attempt 1: test_fail  (2496 in, 690 out, 16.99s)
+[run 1/3] py-user-orders-handler
+  attempt 1: build_fail  (3335 in, 76 out, 4.14s)
+[run 1/3] py-user-store-update-name
+  attempt 1: pass  (1829 in, 518 out, 11.29s)
+[run 2/3] py-health-handler
+  attempt 1: build_fail  (2569 in, 214 out, 6.8s)
+[run 2/3] py-order-cancel
+  attempt 1: test_fail  (3304 in, 868 out, 21.87s)
+[run 2/3] py-order-create-stock-check
+  attempt 1: pass  (2404 in, 776 out, 17.92s)
+[run 2/3] py-order-get
+  attempt 1: test_fail  (3275 in, 817 out, 19.24s)
+[run 2/3] py-order-store-list-by-user
+  attempt 1: pass  (1771 in, 590 out, 12.35s)
+[run 2/3] py-orders-filter-status
+  attempt 1: test_fail  (3315 in, 808 out, 19.44s)
+[run 2/3] py-product-store-adjust-stock
+  attempt 1: pass  (1753 in, 452 out, 9.74s)
+[run 2/3] py-products-filter-instock
+  attempt 1: test_fail  (2182 in, 650 out, 15.1s)
+[run 2/3] py-products-paginate
+  attempt 1: test_fail  (3298 in, 561 out, 13.9s)
+[run 2/3] py-review-handlers
+  attempt 1: test_fail  (4067 in, 553 out, 19.6s)
+[run 2/3] py-review-store-delete
+  attempt 1: pass  (1683 in, 424 out, 8.67s)
+[run 2/3] py-test-format-id
+  attempt 1: fail_on_correct  (1496 in, 249 out, 5.73s)
+[run 2/3] py-test-order-store
+  attempt 1: fail_on_correct  (1978 in, 728 out, 17.43s)
+[run 2/3] py-test-review-store
+  attempt 1: fail_on_correct  (1862 in, 726 out, 16.85s)
+[run 2/3] py-user-create-normalize-email
+  attempt 1: pass  (2434 in, 738 out, 17.18s)
+[run 2/3] py-user-lookup-by-email
+  attempt 1: test_fail  (2496 in, 692 out, 16.38s)
+[run 2/3] py-user-orders-handler
+  attempt 1: build_fail  (3335 in, 260 out, 8.34s)
+[run 2/3] py-user-store-update-name
+  attempt 1: pass  (1829 in, 522 out, 11.43s)
+[run 3/3] py-health-handler
+  attempt 1: test_fail  (2569 in, 172 out, 5.72s)
+[run 3/3] py-order-cancel
+  attempt 1: test_fail  (3304 in, 867 out, 21.53s)
+[run 3/3] py-order-create-stock-check
+  attempt 1: pass  (2404 in, 776 out, 17.79s)
+[run 3/3] py-order-get
+  attempt 1: test_fail  (3275 in, 800 out, 18.96s)
+[run 3/3] py-order-store-list-by-user
+  attempt 1: pass  (1771 in, 590 out, 12.47s)
+[run 3/3] py-orders-filter-status
+  attempt 1: test_fail  (3315 in, 726 out, 17.46s)
+[run 3/3] py-product-store-adjust-stock
+  attempt 1: pass  (1753 in, 469 out, 10.05s)
+[run 3/3] py-products-filter-instock
+  attempt 1: test_fail  (2182 in, 698 out, 16.46s)
+[run 3/3] py-products-paginate
+  attempt 1: test_fail  (3298 in, 561 out, 13.95s)
+[run 3/3] py-review-handlers
+  attempt 1: test_fail  (4067 in, 624 out, 22.68s)
+[run 3/3] py-review-store-delete
+  attempt 1: pass  (1683 in, 421 out, 10.41s)
+[run 3/3] py-test-format-id
+  attempt 1: fail_on_correct  (1496 in, 226 out, 5.47s)
+[run 3/3] py-test-order-store
+  attempt 1: fail_on_correct  (1978 in, 646 out, 16.08s)
+[run 3/3] py-test-review-store
+  attempt 1: fail_on_correct  (1862 in, 799 out, 18.92s)
+[run 3/3] py-user-create-normalize-email
+  attempt 1: test_fail  (2434 in, 738 out, 17.18s)
+[run 3/3] py-user-lookup-by-email
+  attempt 1: test_fail  (2496 in, 689 out, 16.03s)
+[run 3/3] py-user-orders-handler
+  attempt 1: build_fail  (3335 in, 267 out, 8.46s)
+[run 3/3] py-user-store-update-name
+  attempt 1: pass  (1829 in, 518 out, 11.01s)
+
+=== Summary (graded raw) ===
+python: pass@1 17/54 (31%)   pass-with-feedback 17/54 (31%)
+python: pass@1 after fixer 17/54 (31%)
+
+Per task:
+  py-health-handler            fail fail fail
+  py-order-cancel              fail fail fail
+  py-order-create-stock-check  pass@1 pass@1 pass@1
+  py-order-get                 fail fail fail
+  py-order-store-list-by-user  pass@1 pass@1 pass@1
+  py-orders-filter-status      fail fail fail
+  py-product-store-adjust-stock pass@1 pass@1 pass@1
+  py-products-filter-instock   fail fail fail
+  py-products-paginate         fail fail fail
+  py-review-handlers           fail fail fail
+  py-review-store-delete       pass@1 pass@1 pass@1
+  py-test-format-id            fail fail fail
+  py-test-order-store          fail fail fail
+  py-test-review-store         fail fail fail
+  py-user-create-normalize-email pass@1 pass@1 fail
+  py-user-lookup-by-email      fail fail fail
+  py-user-orders-handler       fail fail fail
+  py-user-store-update-name    pass@1 pass@1 pass@1
+##### ALL DONE

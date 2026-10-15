@@ -1,0 +1,12 @@
+id = "py-review-store-delete"
+lang = "python"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add a delete(id) method to ReviewStore that removes the review and returns
+whether it existed. Follow the style of UserStore.delete.
+"""
+context = ["user_store.py"]
+target = "review_store.py"
+hidden_test = "test_hidden_review_store_delete.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

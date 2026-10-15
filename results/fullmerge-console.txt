@@ -1,0 +1,52 @@
+Logging to results/20261005-173333.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=full_merge)
+[run 1/4] go-order-cancel
+  attempt 1: build_fail  (3484 in, 831 out, 23.13s)
+[run 1/4] go-order-get
+  attempt 1: pass  (3455 in, 761 out, 19.91s)
+[run 1/4] go-products-paginate
+  attempt 1: pass  (3295 in, 594 out, 14.75s)
+[run 1/4] go-review-handlers
+  attempt 1: build_fail  (4069 in, 737 out, 27.25s)
+[run 1/4] go-test-review-store
+  attempt 1: build_fail  (2068 in, 1153 out, 31.16s)
+[run 2/4] go-order-cancel
+  attempt 1: test_fail  (3484 in, 806 out, 22.03s)
+[run 2/4] go-order-get
+  attempt 1: pass  (3455 in, 330 out, 9.57s)
+[run 2/4] go-products-paginate
+  attempt 1: pass  (3295 in, 594 out, 14.75s)
+[run 2/4] go-review-handlers
+  attempt 1: build_fail  (4069 in, 581 out, 20.88s)
+[run 2/4] go-test-review-store
+  attempt 1: build_fail  (2068 in, 1165 out, 28.88s)
+[run 3/4] go-order-cancel
+  attempt 1: build_fail  (3484 in, 857 out, 23.62s)
+[run 3/4] go-order-get
+  attempt 1: pass  (3455 in, 761 out, 19.8s)
+[run 3/4] go-products-paginate
+  attempt 1: pass  (3295 in, 594 out, 14.84s)
+[run 3/4] go-review-handlers
+  attempt 1: build_fail  (4069 in, 598 out, 22.04s)
+[run 3/4] go-test-review-store
+  attempt 1: build_fail  (2068 in, 1141 out, 28.42s)
+[run 4/4] go-order-cancel
+  attempt 1: test_fail  (3484 in, 872 out, 24.08s)
+[run 4/4] go-order-get
+  attempt 1: pass  (3455 in, 761 out, 19.73s)
+[run 4/4] go-products-paginate
+  attempt 1: pass  (3295 in, 594 out, 14.77s)
+[run 4/4] go-review-handlers
+  attempt 1: build_fail  (4069 in, 697 out, 25.34s)
+[run 4/4] go-test-review-store
+  attempt 1: build_fail  (2068 in, 1272 out, 30.99s)
+
+=== Summary (graded raw) ===
+go: pass@1 8/20 (40%)   pass-with-feedback 8/20 (40%)
+go: pass@1 after fixer 8/20 (40%)
+
+Per task:
+  go-order-cancel              fail fail fail fail
+  go-order-get                 pass@1 pass@1 pass@1 pass@1
+  go-products-paginate         pass@1 pass@1 pass@1 pass@1
+  go-review-handlers           fail fail fail fail
+  go-test-review-store         fail fail fail fail

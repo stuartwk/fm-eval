@@ -1,0 +1,17 @@
+id = "go-health-handler"
+lang = "go"
+kind = "new_file"
+tier = "easy"
+instruction = """
+Create health.go with a health check endpoint.
+- Add a method healthRoutes(mux *http.ServeMux) that registers
+  GET /healthz -> handleHealth.
+- handleHealth responds 200 with data {"status": "ok", "users": N,
+  "products": N, "orders": N} where each N is the number of stored items.
+  Use a healthResponse struct with JSON tags for the payload.
+Do not modify any other file. Follow the conventions of the existing handlers.
+"""
+context = ["respond.go", "server.go", "user_handlers.go"]
+target = "health.go"
+hidden_test = "hidden_health_handler_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

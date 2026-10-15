@@ -1,0 +1,17 @@
+id = "py-user-orders-handler"
+lang = "python"
+kind = "new_file"
+tier = "medium"
+instruction = """
+Create user_orders.py with an endpoint that lists one user's orders.
+- Add a function user_order_routes(s, router) that registers
+  GET /users/{id}/orders -> handle_list_user_orders.
+- Respond 404 if the user does not exist.
+- Return the user's orders sorted by ID, paginated with ?limit= and
+  ?offset= exactly like the orders list endpoint.
+Do not modify any other file. Follow the conventions of the existing handlers.
+"""
+context = ["respond.py", "request.py", "order_store.py", "order_handlers.py"]
+target = "user_orders.py"
+hidden_test = "test_hidden_user_orders_handler.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

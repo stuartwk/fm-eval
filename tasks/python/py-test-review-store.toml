@@ -1,0 +1,30 @@
+id = "py-test-review-store"
+lang = "python"
+kind = "new_file"
+tier = "test"
+instruction = """
+Write test_review_store.py with unit tests for ReviewStore. Cover:
+- create assigns sequential IDs ("rev_000001", "rev_000002", ...) and
+  get returns the stored review.
+- get on a missing ID returns None.
+- list_by_product returns only that product's reviews, sorted by ID, and
+  an empty list for a product with no reviews.
+Use table-driven tests with subTest in the same style as the existing
+tests. Test the store directly; do not go through HTTP.
+"""
+context = ["review_store.py", "test_request.py"]
+target = "test_review_store.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]
+mutant_test_cmd = ["python3", "-m", "unittest", "test_review_store"]
+
+[[mutants]]
+file = "mutants/review_store_nofilter.py"
+replaces = "review_store.py"
+
+[[mutants]]
+file = "mutants/review_store_desc.py"
+replaces = "review_store.py"
+
+[[mutants]]
+file = "mutants/review_store_noseq.py"
+replaces = "review_store.py"

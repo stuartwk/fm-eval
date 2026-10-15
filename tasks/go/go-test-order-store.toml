@@ -1,0 +1,31 @@
+id = "go-test-order-store"
+lang = "go"
+kind = "new_file"
+tier = "test"
+instruction = """
+Write order_store_test.go with unit tests for OrderStore. Name the test
+functions TestOrderStore... so they do not clash with existing tests. Cover:
+- Create assigns sequential IDs ("ord_000001", "ord_000002", ...) and Get
+  returns the stored order.
+- SetStatus changes the stored status (check it with Get afterwards) and
+  reports false for a missing ID.
+- List returns all orders sorted by ID.
+Use table-driven tests in the same style as the existing tests. Test the
+store directly; do not go through HTTP.
+"""
+context = ["order_store.go", "request_test.go"]
+target = "order_store_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]
+mutant_test_cmd = ["go", "test", "-count=1", "-run", "^TestOrderStore", "./..."]
+
+[[mutants]]
+file = "mutants/order_store_nopersist.go"
+replaces = "order_store.go"
+
+[[mutants]]
+file = "mutants/order_store_desc.go"
+replaces = "order_store.go"
+
+[[mutants]]
+file = "mutants/order_store_noseq.go"
+replaces = "order_store.go"

@@ -1,0 +1,17 @@
+id = "py-health-handler"
+lang = "python"
+kind = "new_file"
+tier = "easy"
+instruction = """
+Create health.py with a health check endpoint.
+- Add a function health_routes(s, router) that registers
+  GET /healthz -> handle_health.
+- handle_health responds 200 with data {"status": "ok", "users": N,
+  "products": N, "orders": N} where each N is the number of stored items.
+  Use a HealthResponse dataclass for the payload.
+Do not modify any other file. Follow the conventions of the existing handlers.
+"""
+context = ["respond.py", "server.py", "user_handlers.py"]
+target = "health.py"
+hidden_test = "test_hidden_health_handler.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

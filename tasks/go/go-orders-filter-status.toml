@@ -1,0 +1,14 @@
+id = "go-orders-filter-status"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+Let GET /orders filter by status with an optional ?status= query parameter
+(pending, paid, or cancelled). Filter before paginating, so the page total
+counts only matching orders. Any other non-empty value is a 400 with the
+bad_query error code. Without the parameter, behave exactly as now.
+"""
+context = ["order_store.go", "request.go", "respond.go"]
+target = "order_handlers.go"
+hidden_test = "hidden_orders_filter_status_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

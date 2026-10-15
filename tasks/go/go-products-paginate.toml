@@ -1,0 +1,14 @@
+id = "go-products-paginate"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+GET /products currently returns every product at once. Paginate it with
+?limit= and ?offset= the same way the users list endpoint does, including
+the page object in the response and a 400 for invalid query parameters.
+Keep the other product handlers unchanged.
+"""
+context = ["respond.go", "request.go", "user_handlers.go"]
+target = "product_handlers.go"
+hidden_test = "hidden_products_paginate_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

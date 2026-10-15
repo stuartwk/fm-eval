@@ -1,0 +1,17 @@
+id = "go-user-orders-handler"
+lang = "go"
+kind = "new_file"
+tier = "medium"
+instruction = """
+Create user_orders.go with an endpoint that lists one user's orders.
+- Add a method userOrderRoutes(mux *http.ServeMux) that registers
+  GET /users/{id}/orders -> handleListUserOrders.
+- Respond 404 if the user does not exist.
+- Return the user's orders sorted by ID, paginated with ?limit= and
+  ?offset= exactly like the orders list endpoint.
+Do not modify any other file. Follow the conventions of the existing handlers.
+"""
+context = ["respond.go", "request.go", "order_store.go", "order_handlers.go"]
+target = "user_orders.go"
+hidden_test = "hidden_user_orders_handler_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

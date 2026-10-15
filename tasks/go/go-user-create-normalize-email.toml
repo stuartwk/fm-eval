@@ -1,0 +1,13 @@
+id = "go-user-create-normalize-email"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+When creating a user, normalize the email before validating and storing it:
+trim surrounding whitespace and lowercase it. Keep everything else about
+user creation unchanged.
+"""
+context = ["user_store.go", "respond.go"]
+target = "user_handlers.go"
+hidden_test = "hidden_user_create_normalize_email_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

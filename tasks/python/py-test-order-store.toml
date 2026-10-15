@@ -1,0 +1,30 @@
+id = "py-test-order-store"
+lang = "python"
+kind = "new_file"
+tier = "test"
+instruction = """
+Write test_order_store.py with unit tests for OrderStore. Cover:
+- create assigns sequential IDs ("ord_000001", "ord_000002", ...) and get
+  returns the stored order.
+- set_status changes the stored status (check it with get afterwards) and
+  returns None for a missing ID.
+- list returns all orders sorted by ID.
+Use table-driven tests with subTest in the same style as the existing
+tests. Test the store directly; do not go through HTTP.
+"""
+context = ["order_store.py", "test_request.py"]
+target = "test_order_store.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]
+mutant_test_cmd = ["python3", "-m", "unittest", "test_order_store"]
+
+[[mutants]]
+file = "mutants/order_store_nopersist.py"
+replaces = "order_store.py"
+
+[[mutants]]
+file = "mutants/order_store_desc.py"
+replaces = "order_store.py"
+
+[[mutants]]
+file = "mutants/order_store_noseq.py"
+replaces = "order_store.py"

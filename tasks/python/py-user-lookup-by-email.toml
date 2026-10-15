@@ -1,0 +1,15 @@
+id = "py-user-lookup-by-email"
+lang = "python"
+kind = "modify"
+tier = "medium"
+instruction = """
+Add an endpoint GET /users/lookup?email=... that returns the user with that
+email (matching case-insensitively). Respond 400 with the bad_query error
+code if the email parameter is missing, and a 404 (using the email as the
+id in the not-found message) if no user has that email. Name the handler
+handle_lookup_user and register it in user_routes.
+"""
+context = ["user_store.py", "respond.py"]
+target = "user_handlers.py"
+hidden_test = "test_hidden_user_lookup_by_email.py"
+test_cmd = ["python3", "-m", "unittest", "discover", "-p", "test_*.py"]

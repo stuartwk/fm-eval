@@ -1,0 +1,403 @@
+##### CONFIG 1 BASELINE
+Logging to results/20261005-192026.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=full)
+[run 1/3] go-health-handler
+  attempt 1: build_fail  (1813 in, 242 out, 6.94s)
+[run 1/3] go-order-cancel
+  attempt 1: build_fail  (2886 in, 951 out, 23.84s)
+[run 1/3] go-order-create-stock-check
+  attempt 1: build_fail  (1946 in, 409 out, 10.25s)
+[run 1/3] go-order-get
+  attempt 1: test_fail  (2857 in, 770 out, 18.51s)
+[run 1/3] go-order-store-list-by-user
+  attempt 1: build_fail  (1353 in, 744 out, 14.01s)
+[run 1/3] go-orders-filter-status
+  attempt 1: build_fail  [after fixer: test_fail]  (2731 in, 693 out, 16.57s)
+[run 1/3] go-product-store-adjust-stock
+  attempt 1: pass  (1360 in, 589 out, 11.38s)
+[run 1/3] go-products-filter-instock
+  attempt 1: build_fail  [after fixer: test_fail]  (1795 in, 688 out, 15.34s)
+[run 1/3] go-products-paginate
+  attempt 1: pass  (2697 in, 594 out, 14.13s)
+[run 1/3] go-review-handlers
+  attempt 1: build_fail  (3471 in, 709 out, 19.93s)
+[run 1/3] go-review-store-delete
+  attempt 1: pass  (1301 in, 540 out, 10.42s)
+[run 1/3] go-test-format-id
+  attempt 1: fail_on_correct  (1233 in, 288 out, 6.71s)
+[run 1/3] go-test-order-store
+  attempt 1: build_fail  (1639 in, 1639 out, 38.53s)
+[run 1/3] go-test-review-store
+  attempt 1: build_fail  (1470 in, 930 out, 21.39s)
+[run 1/3] go-user-create-normalize-email
+  attempt 1: test_fail  (2086 in, 770 out, 17.9s)
+[run 1/3] go-user-lookup-by-email
+  attempt 1: test_fail  (2144 in, 862 out, 19.96s)
+[run 1/3] go-user-orders-handler
+  attempt 1: build_fail  (2750 in, 240 out, 7.63s)
+[run 1/3] go-user-store-update-name
+  attempt 1: build_fail  (1484 in, 706 out, 13.98s)
+[run 2/3] go-health-handler
+  attempt 1: build_fail  (1813 in, 243 out, 6.55s)
+[run 2/3] go-order-cancel
+  attempt 1: build_fail  (2886 in, 889 out, 21.8s)
+[run 2/3] go-order-create-stock-check
+  attempt 1: build_fail  (1946 in, 488 out, 11.73s)
+[run 2/3] go-order-get
+  attempt 1: test_fail  (2857 in, 766 out, 18.17s)
+[run 2/3] go-order-store-list-by-user
+  attempt 1: build_fail  (1353 in, 746 out, 14.01s)
+[run 2/3] go-orders-filter-status
+  attempt 1: build_fail  [after fixer: test_fail]  (2731 in, 693 out, 16.69s)
+[run 2/3] go-product-store-adjust-stock
+  attempt 1: pass  (1360 in, 614 out, 11.88s)
+[run 2/3] go-products-filter-instock
+  attempt 1: test_fail  (1795 in, 686 out, 15.29s)
+[run 2/3] go-products-paginate
+  attempt 1: pass  (2697 in, 594 out, 14.19s)
+[run 2/3] go-review-handlers
+  attempt 1: build_fail  (3471 in, 852 out, 24.11s)
+[run 2/3] go-review-store-delete
+  attempt 1: pass  (1301 in, 537 out, 10.21s)
+[run 2/3] go-test-format-id
+  attempt 1: build_fail  [after fixer: fail_on_correct]  (1233 in, 368 out, 8.24s)
+[run 2/3] go-test-order-store
+  attempt 1: build_fail  (1639 in, 1032 out, 24.26s)
+[run 2/3] go-test-review-store
+  attempt 1: build_fail  (1470 in, 1155 out, 27.19s)
+[run 2/3] go-user-create-normalize-email
+  attempt 1: pass  (2086 in, 769 out, 17.89s)
+[run 2/3] go-user-lookup-by-email
+  attempt 1: test_fail  (2144 in, 862 out, 19.98s)
+[run 2/3] go-user-orders-handler
+  attempt 1: build_fail  (2750 in, 265 out, 8.11s)
+[run 2/3] go-user-store-update-name
+  attempt 1: build_fail  (1484 in, 702 out, 13.84s)
+[run 3/3] go-health-handler
+  attempt 1: build_fail  (1813 in, 228 out, 5.98s)
+[run 3/3] go-order-cancel
+  attempt 1: build_fail  (2886 in, 914 out, 22.63s)
+[run 3/3] go-order-create-stock-check
+  attempt 1: build_fail  (1946 in, 414 out, 10.1s)
+[run 3/3] go-order-get
+  attempt 1: test_fail  (2857 in, 769 out, 18.37s)
+[run 3/3] go-order-store-list-by-user
+  attempt 1: build_fail  (1353 in, 765 out, 14.49s)
+[run 3/3] go-orders-filter-status
+  attempt 1: build_fail  [after fixer: test_fail]  (2731 in, 693 out, 16.61s)
+[run 3/3] go-product-store-adjust-stock
+  attempt 1: pass  (1360 in, 605 out, 11.53s)
+[run 3/3] go-products-filter-instock
+  attempt 1: test_fail  (1795 in, 749 out, 16.98s)
+[run 3/3] go-products-paginate
+  attempt 1: pass  (2697 in, 594 out, 14.09s)
+[run 3/3] go-review-handlers
+  attempt 1: build_fail  (3471 in, 1031 out, 30.3s)
+[run 3/3] go-review-store-delete
+  attempt 1: pass  (1301 in, 540 out, 10.27s)
+[run 3/3] go-test-format-id
+  attempt 1: fail_on_correct  (1233 in, 317 out, 7.35s)
+[run 3/3] go-test-order-store
+  attempt 1: build_fail  (1639 in, 1560 out, 36.22s)
+[run 3/3] go-test-review-store
+  attempt 1: build_fail  (1470 in, 1025 out, 23.16s)
+[run 3/3] go-user-create-normalize-email
+  attempt 1: test_fail  (2086 in, 749 out, 18.43s)
+[run 3/3] go-user-lookup-by-email
+  attempt 1: test_fail  (2144 in, 862 out, 21.42s)
+[run 3/3] go-user-orders-handler
+  attempt 1: build_fail  (2750 in, 210 out, 6.6s)
+[run 3/3] go-user-store-update-name
+  attempt 1: build_fail  (1484 in, 702 out, 13.85s)
+
+=== Summary (graded raw) ===
+go: pass@1 10/54 (19%)   pass-with-feedback 10/54 (19%)
+go: pass@1 after fixer 10/54 (19%)
+
+Per task:
+  go-health-handler            fail fail fail
+  go-order-cancel              fail fail fail
+  go-order-create-stock-check  fail fail fail
+  go-order-get                 fail fail fail
+  go-order-store-list-by-user  fail fail fail
+  go-orders-filter-status      fail fail fail
+  go-product-store-adjust-stock pass@1 pass@1 pass@1
+  go-products-filter-instock   fail fail fail
+  go-products-paginate         pass@1 pass@1 pass@1
+  go-review-handlers           fail fail fail
+  go-review-store-delete       pass@1 pass@1 pass@1
+  go-test-format-id            fail fail fail
+  go-test-order-store          fail fail fail
+  go-test-review-store         fail fail fail
+  go-user-create-normalize-email fail pass@1 fail
+  go-user-lookup-by-email      fail fail fail
+  go-user-orders-handler       fail fail fail
+  go-user-store-update-name    fail fail fail
+##### CONFIG 2 BEST
+Logging to results/20261005-194056.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=full_merge)
+[run 1/3] go-health-handler
+  attempt 1: build_fail  (2411 in, 277 out, 9.54s)
+[run 1/3] go-order-cancel
+  attempt 1: test_fail  (3484 in, 880 out, 24.31s)
+[run 1/3] go-order-create-stock-check
+  attempt 1: pass  (2544 in, 758 out, 18.14s)
+[run 1/3] go-order-get
+  attempt 1: pass  (3455 in, 761 out, 19.64s)
+[run 1/3] go-order-store-list-by-user
+  attempt 1: build_fail  (1951 in, 753 out, 17.42s)
+[run 1/3] go-orders-filter-status
+  attempt 1: build_fail  (3329 in, 814 out, 21.02s)
+[run 1/3] go-product-store-adjust-stock
+  attempt 1: pass  (1958 in, 598 out, 13.66s)
+[run 1/3] go-products-filter-instock
+  attempt 1: test_fail  (2393 in, 753 out, 18.27s)
+[run 1/3] go-products-paginate
+  attempt 1: pass  (3295 in, 594 out, 14.65s)
+[run 1/3] go-review-handlers
+  attempt 1: build_fail  (4069 in, 3648 out, 145.33s)
+[run 1/3] go-review-store-delete
+  attempt 1: pass  (1899 in, 540 out, 12.0s)
+[run 1/3] go-test-format-id
+  attempt 1: build_fail  (1831 in, 341 out, 8.26s)
+[run 1/3] go-test-order-store
+  attempt 1: build_fail  (2237 in, 2463 out, 65.05s)
+[run 1/3] go-test-review-store
+  attempt 1: build_fail  (2068 in, 1110 out, 26.62s)
+[run 1/3] go-user-create-normalize-email
+  attempt 1: test_fail  (2684 in, 766 out, 18.33s)
+[run 1/3] go-user-lookup-by-email
+  attempt 1: test_fail  (2742 in, 864 out, 20.56s)
+[run 1/3] go-user-orders-handler
+  attempt 1: build_fail  (3348 in, 235 out, 7.87s)
+[run 1/3] go-user-store-update-name
+  attempt 1: merge_fail  (2082 in, 704 out, 16.22s)
+[run 2/3] go-health-handler
+  attempt 1: build_fail  (2411 in, 246 out, 7.91s)
+[run 2/3] go-order-cancel
+  attempt 1: build_fail  (3484 in, 757 out, 20.26s)
+[run 2/3] go-order-create-stock-check
+  attempt 1: pass  (2544 in, 846 out, 20.34s)
+[run 2/3] go-order-get
+  attempt 1: pass  (3455 in, 761 out, 19.72s)
+[run 2/3] go-order-store-list-by-user
+  attempt 1: build_fail  (1951 in, 1140 out, 25.13s)
+[run 2/3] go-orders-filter-status
+  attempt 1: build_fail  (3329 in, 860 out, 22.93s)
+[run 2/3] go-product-store-adjust-stock
+  attempt 1: pass  (1958 in, 600 out, 13.9s)
+[run 2/3] go-products-filter-instock
+  attempt 1: build_fail  (2393 in, 739 out, 18.09s)
+[run 2/3] go-products-paginate
+  attempt 1: pass  (3295 in, 594 out, 14.73s)
+[run 2/3] go-review-handlers
+  attempt 1: build_fail  (4069 in, 588 out, 21.43s)
+[run 2/3] go-review-store-delete
+  attempt 1: pass  (1899 in, 539 out, 12.03s)
+[run 2/3] go-test-format-id
+  attempt 1: fail_on_correct  (1831 in, 346 out, 8.47s)
+[run 2/3] go-test-order-store
+  attempt 1: build_fail  (2237 in, 1530 out, 37.58s)
+[run 2/3] go-test-review-store
+  attempt 1: build_fail  (2068 in, 1291 out, 31.58s)
+[run 2/3] go-user-create-normalize-email
+  attempt 1: pass  (2684 in, 766 out, 18.32s)
+[run 2/3] go-user-lookup-by-email
+  attempt 1: test_fail  (2742 in, 867 out, 20.74s)
+[run 2/3] go-user-orders-handler
+  attempt 1: build_fail  (3348 in, 205 out, 7.07s)
+[run 2/3] go-user-store-update-name
+  attempt 1: merge_fail  (2082 in, 690 out, 15.58s)
+[run 3/3] go-health-handler
+  attempt 1: build_fail  (2411 in, 259 out, 8.05s)
+[run 3/3] go-order-cancel
+  attempt 1: test_fail  (3484 in, 880 out, 24.42s)
+[run 3/3] go-order-create-stock-check
+  attempt 1: pass  (2544 in, 761 out, 18.31s)
+[run 3/3] go-order-get
+  attempt 1: build_fail  (3455 in, 279 out, 8.72s)
+[run 3/3] go-order-store-list-by-user
+  attempt 1: test_fail  (1951 in, 750 out, 16.73s)
+[run 3/3] go-orders-filter-status
+  attempt 1: test_fail  (3329 in, 796 out, 20.58s)
+[run 3/3] go-product-store-adjust-stock
+  attempt 1: pass  (1958 in, 598 out, 13.78s)
+[run 3/3] go-products-filter-instock
+  attempt 1: build_fail  [after fixer: test_fail]  (2393 in, 693 out, 16.9s)
+[run 3/3] go-products-paginate
+  attempt 1: pass  (3295 in, 594 out, 14.7s)
+[run 3/3] go-review-handlers
+  attempt 1: build_fail  (4069 in, 581 out, 20.98s)
+[run 3/3] go-review-store-delete
+  attempt 1: pass  (1899 in, 544 out, 13.48s)
+[run 3/3] go-test-format-id
+  attempt 1: fail_on_correct  (1831 in, 286 out, 7.11s)
+[run 3/3] go-test-order-store
+  attempt 1: build_fail  (2237 in, 1933 out, 47.77s)
+[run 3/3] go-test-review-store
+  attempt 1: build_fail  (2068 in, 1246 out, 31.29s)
+[run 3/3] go-user-create-normalize-email
+  attempt 1: pass  (2684 in, 766 out, 19.31s)
+[run 3/3] go-user-lookup-by-email
+  attempt 1: test_fail  (2742 in, 862 out, 20.45s)
+[run 3/3] go-user-orders-handler
+  attempt 1: build_fail  (3348 in, 205 out, 7.07s)
+[run 3/3] go-user-store-update-name
+  attempt 1: merge_fail  (2082 in, 691 out, 15.59s)
+
+=== Summary (graded raw) ===
+go: pass@1 16/54 (30%)   pass-with-feedback 16/54 (30%)
+go: pass@1 after fixer 16/54 (30%)
+
+Per task:
+  go-health-handler            fail fail fail
+  go-order-cancel              fail fail fail
+  go-order-create-stock-check  pass@1 pass@1 pass@1
+  go-order-get                 pass@1 pass@1 fail
+  go-order-store-list-by-user  fail fail fail
+  go-orders-filter-status      fail fail fail
+  go-product-store-adjust-stock pass@1 pass@1 pass@1
+  go-products-filter-instock   fail fail fail
+  go-products-paginate         pass@1 pass@1 pass@1
+  go-review-handlers           fail fail fail
+  go-review-store-delete       pass@1 pass@1 pass@1
+  go-test-format-id            fail fail fail
+  go-test-order-store          fail fail fail
+  go-test-review-store         fail fail fail
+  go-user-create-normalize-email fail pass@1 pass@1
+  go-user-lookup-by-email      fail fail fail
+  go-user-orders-handler       fail fail fail
+  go-user-store-update-name    fail fail fail
+##### CONFIG 3 HYBRID
+Logging to results/20261005-203213.jsonl  (sampling=default, output=plain, retry=fresh, fixup=False, edit=full_merge)
+[run 1/3] go-health-handler
+  attempt 1: build_fail  (3838 in, 240 out, 9.04s)
+[run 1/3] go-order-cancel
+  attempt 1: test_fail  (4811 in, 838 out, 29.77s)
+[run 1/3] go-order-create-stock-check
+  attempt 1: pass  (3871 in, 846 out, 27.61s)
+[run 1/3] go-order-get
+  attempt 1: pass  (4782 in, 793 out, 29.63s)
+[run 1/3] go-order-store-list-by-user
+  attempt 1: build_fail  (3156 in, 719 out, 17.63s)
+[run 1/3] go-orders-filter-status
+  attempt 1: build_fail  (4656 in, 836 out, 33.95s)
+[run 1/3] go-product-store-adjust-stock
+  attempt 1: pass  (3229 in, 597 out, 15.24s)
+[run 1/3] go-products-filter-instock
+  attempt 1: test_fail  (3692 in, 681 out, 19.96s)
+[run 1/3] go-products-paginate
+  attempt 1: pass  (4594 in, 594 out, 21.25s)
+[run 1/3] go-review-handlers
+  attempt 1: build_fail  (5496 in, 652 out, 26.33s)
+[run 1/3] go-review-store-delete
+  attempt 1: pass  (3156 in, 536 out, 13.41s)
+[run 1/3] go-test-format-id
+  attempt 1: build_fail  [after fixer: fail_on_correct]  (3258 in, 274 out, 8.8s)
+[run 1/3] go-test-order-store
+  attempt 1: build_fail  (3664 in, 966 out, 31.3s)
+[run 1/3] go-test-review-store
+  attempt 1: build_fail  (3495 in, 1228 out, 38.32s)
+[run 1/3] go-user-create-normalize-email
+  attempt 1: test_fail  (3972 in, 749 out, 24.07s)
+[run 1/3] go-user-lookup-by-email
+  attempt 1: test_fail  (4030 in, 862 out, 28.18s)
+[run 1/3] go-user-orders-handler
+  attempt 1: build_fail  (4775 in, 306 out, 13.95s)
+[run 1/3] go-user-store-update-name
+  attempt 1: merge_fail  (3315 in, 702 out, 16.98s)
+[run 2/3] go-health-handler
+  attempt 1: build_fail  (3838 in, 240 out, 9.12s)
+[run 2/3] go-order-cancel
+  attempt 1: build_fail  [after fixer: test_fail]  (4811 in, 842 out, 29.87s)
+[run 2/3] go-order-create-stock-check
+  attempt 1: pass  (3871 in, 843 out, 27.32s)
+[run 2/3] go-order-get
+  attempt 1: pass  (4782 in, 793 out, 29.8s)
+[run 2/3] go-order-store-list-by-user
+  attempt 1: build_fail  (3156 in, 745 out, 17.78s)
+[run 2/3] go-orders-filter-status
+  attempt 1: test_fail  (4656 in, 781 out, 28.34s)
+[run 2/3] go-product-store-adjust-stock
+  attempt 1: pass  (3229 in, 600 out, 15.07s)
+[run 2/3] go-products-filter-instock
+  attempt 1: test_fail  (3692 in, 767 out, 30.82s)
+[run 2/3] go-products-paginate
+  attempt 1: pass  (4594 in, 594 out, 21.24s)
+[run 2/3] go-review-handlers
+  attempt 1: build_fail  (5496 in, 755 out, 29.56s)
+[run 2/3] go-review-store-delete
+  attempt 1: pass  (3156 in, 537 out, 13.44s)
+[run 2/3] go-test-format-id
+  attempt 1: fail_on_correct  (3258 in, 307 out, 10.07s)
+[run 2/3] go-test-order-store
+  attempt 1: build_fail  (3664 in, 1115 out, 36.35s)
+[run 2/3] go-test-review-store
+  attempt 1: build_fail  (3495 in, 786 out, 22.5s)
+[run 2/3] go-user-create-normalize-email
+  attempt 1: test_fail  (3972 in, 752 out, 23.97s)
+[run 2/3] go-user-lookup-by-email
+  attempt 1: build_fail  (4030 in, 873 out, 28.5s)
+[run 2/3] go-user-orders-handler
+  attempt 1: build_fail  (4775 in, 396 out, 17.1s)
+[run 2/3] go-user-store-update-name
+  attempt 1: merge_fail  (3315 in, 691 out, 16.57s)
+[run 3/3] go-health-handler
+  attempt 1: build_fail  (3838 in, 247 out, 9.79s)
+[run 3/3] go-order-cancel
+  attempt 1: build_fail  (4811 in, 904 out, 32.96s)
+[run 3/3] go-order-create-stock-check
+  attempt 1: pass  (3871 in, 846 out, 27.21s)
+[run 3/3] go-order-get
+  attempt 1: pass  (4782 in, 793 out, 28.16s)
+[run 3/3] go-order-store-list-by-user
+  attempt 1: build_fail  (3156 in, 745 out, 17.82s)
+[run 3/3] go-orders-filter-status
+  attempt 1: merge_fail  (4656 in, 753 out, 27.22s)
+[run 3/3] go-product-store-adjust-stock
+  attempt 1: pass  (3229 in, 599 out, 15.23s)
+[run 3/3] go-products-filter-instock
+  attempt 1: build_fail  [after fixer: test_fail]  (3692 in, 726 out, 21.77s)
+[run 3/3] go-products-paginate
+  attempt 1: pass  (4594 in, 594 out, 21.39s)
+[run 3/3] go-review-handlers
+  attempt 1: build_fail  (5496 in, 738 out, 29.87s)
+[run 3/3] go-review-store-delete
+  attempt 1: pass  (3156 in, 536 out, 13.52s)
+[run 3/3] go-test-format-id
+  attempt 1: fail_on_correct  (3258 in, 307 out, 10.24s)
+[run 3/3] go-test-order-store
+  attempt 1: build_fail  (3664 in, 1225 out, 41.17s)
+[run 3/3] go-test-review-store
+  attempt 1: build_fail  (3495 in, 896 out, 27.87s)
+[run 3/3] go-user-create-normalize-email
+  attempt 1: pass  (3972 in, 769 out, 24.94s)
+[run 3/3] go-user-lookup-by-email
+  attempt 1: merge_fail  (4030 in, 875 out, 29.1s)
+[run 3/3] go-user-orders-handler
+  attempt 1: build_fail  (4775 in, 367 out, 16.44s)
+[run 3/3] go-user-store-update-name
+  attempt 1: merge_fail  (3315 in, 691 out, 16.59s)
+
+=== Summary (graded raw) ===
+go: pass@1 16/54 (30%)   pass-with-feedback 16/54 (30%)
+go: pass@1 after fixer 16/54 (30%)
+
+Per task:
+  go-health-handler            fail fail fail
+  go-order-cancel              fail fail fail
+  go-order-create-stock-check  pass@1 pass@1 pass@1
+  go-order-get                 pass@1 pass@1 pass@1
+  go-order-store-list-by-user  fail fail fail
+  go-orders-filter-status      fail fail fail
+  go-product-store-adjust-stock pass@1 pass@1 pass@1
+  go-products-filter-instock   fail fail fail
+  go-products-paginate         pass@1 pass@1 pass@1
+  go-review-handlers           fail fail fail
+  go-review-store-delete       pass@1 pass@1 pass@1
+  go-test-format-id            fail fail fail
+  go-test-order-store          fail fail fail
+  go-test-review-store         fail fail fail
+  go-user-create-normalize-email fail fail pass@1
+  go-user-lookup-by-email      fail fail fail
+  go-user-orders-handler       fail fail fail
+  go-user-store-update-name    fail fail fail
+##### ALL DONE
