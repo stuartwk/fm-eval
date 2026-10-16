@@ -60,6 +60,8 @@ are plain functions over the fixture's own request and response types.
 - retry_ab.py        Compares retry styles starting from the same recorded
                      first attempts, after applying the current harness
                      (merge, repair, wire) to seeds and retries alike.
+- focused_ab.py      Runs logic-failure tasks with a minimal prompt of
+                     hand-picked declarations instead of whole files.
 - regrade.py         Regrades recorded outputs after a harness fix.
 - tag_failures.py    Heuristic failure tags per config and tier; spot-check
                      with --show TAG before trusting the counts.
@@ -203,6 +205,30 @@ model's tests against mutants, for when existing tests would catch them.
 - Best configs so far (pass@1, 18 tasks x 3 runs): Go 23/54 (43%) with
   full_merge + auto + conventions + repair + wire; Python 27/54 (50%) with
   full_merge + py-shop-api skill + repair + wire.
+- Constrained-choice Step 0 (2026-10-16): the 31 failures left in the best
+  Go config (20261005-203213 regraded with repair + wire, 23/54 reproduced)
+  read by hand. Wrong logic or misread spec 14 (filter on whether a status
+  is valid instead of ?status=, in_stock with no param filters to zero
+  stock, email trimmed but not lowercased, nil instead of empty slice in
+  ListByUser, health payload as map[string]int); test-writing 9; wrong
+  identifier or return arity 4 (order-cancel o.SetStatus, review-handlers);
+  structural 4 (user-orders copies createUserRequest, lookup handler with
+  a routes signature); syntax outside tests 0; model_error 0. Plan: enum
+  holes from go/types plus AST skeletons mirrored from a reference. Its
+  plausible ceiling is the 8 identifier and structural failures plus 3
+  ListByUser (pure mirror of ListByProduct): 34/54 at best, before
+  regressions. 11 of the 14 logic failures sit in exactly the free-text
+  expressions the plan leaves to the model. Verdict: no-go on the full
+  build; the remaining errors are mostly what to compute, not what to call.
+- Focused prompts (2026-10-16, focused_ab.py, results/focused-20261016-
+  093459): the 5 logic-failure tasks with a 500 to 1000 token prompt (the
+  declarations being changed plus hand-picked related ones, no API sheet,
+  no whole files; symbol replies; repair + wire) instead of ~4600 tokens.
+  2/15 vs 0/15 before. Both passes are ListByUser (empty slice copied from
+  the example). Elsewhere no better or worse: normalize-email 3/3 returned
+  the handler unchanged; filter-status invented p.Status, an options
+  struct, and helpers; in_stock kept the wrong no-param semantics; health
+  dropped the *Server receivers. Prompt noise is not the main cause.
 - Negative result (2026-10-06): a did-you-mean rename repair (unknown
   attribute or identifier -> closest valid name) fired 7 times on recorded
   outputs and rescued 0: each renamed call was still wrong (missing
