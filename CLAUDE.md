@@ -64,6 +64,8 @@ are plain functions over the fixture's own request and response types.
                      hand-picked declarations instead of whole files.
 - recipes.py         Edit recipes: model routes and fills slots, harness
                      renders templates; falls back to the best config.
+- best_of_n.py       n candidates, picked by compile, existing tests, and
+                     model-written HTTP checks (no hidden tests).
 - regrade.py         Regrades recorded outputs after a harness fix.
 - tag_failures.py    Heuristic failure tags per config and tier; spot-check
                      with --show TAG before trusting the counts.
@@ -261,6 +263,21 @@ model's tests against mutants, for when existing tests would catch them.
   condition (Stock >= 5) in the slot for true, and the yes/no check
   approved it; users-filter-name 2/3 rejected by grounding (the model
   invented an allowed value "exact_match"), safely falling back.
+- Best-of-n (2026-10-22, best_of_n.py, results/bestofn-20261022-070331):
+  the 11 non-test tasks recipes do not cover, 3 runs x 5 candidates from
+  the best config. The model writes 3 to 6 HTTP checks as guided JSON and
+  the harness renders them as a Go test; the pick is the candidate that
+  compiles, keeps the fixture's tests, and passes the most checks. Picked
+  22/33, one random candidate 20.6/33, any of 5 23/33. The checks did
+  nothing: the reference solution passes only 42/109 of them (all wrong
+  on health, review-handlers, user-orders), and they never separated two
+  candidates that compiled. The whole gain came from the compile and
+  existing-test filter (first such candidate: also 22/33). The one
+  recoverable miss (user-lookup run 1) was a tie the checks could not
+  break. Ceiling is low anyway: 4 tasks are near 5/5 or 0/5 per run, and
+  the failures (health, review-handlers, user-orders) fail in all 15
+  candidates, so sampling more does not find a correct one. The combined
+  recipe pipeline stays at 33/45.
 - Negative result (2026-10-06): a did-you-mean rename repair (unknown
   attribute or identifier -> closest valid name) fired 7 times on recorded
   outputs and rescued 0: each renamed call was still wrong (missing
