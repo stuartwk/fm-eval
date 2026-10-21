@@ -1,0 +1,13 @@
+id = "go-ho-product-create-trim-name"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Product names arrive with stray spaces from the admin form. When a product
+is created, strip leading and trailing whitespace from its name so it is
+validated and saved without them.
+"""
+context = ["product_store.go", "respond.go", "request.go"]
+target = "product_handlers.go"
+hidden_test = "hidden_ho_product_create_trim_name_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

@@ -1,0 +1,14 @@
+id = "go-ho-users-filter-name"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+GET /users should accept an optional ?name= parameter. When it is given,
+only users whose name matches it exactly are listed, and pagination and the
+page total apply to the matching users only. Requests without the
+parameter are unaffected.
+"""
+context = ["request.go", "respond.go", "user_store.go"]
+target = "user_handlers.go"
+hidden_test = "hidden_ho_users_filter_name_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

@@ -1,0 +1,14 @@
+id = "go-ho-products-filter-low-stock"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+Support GET /products?low_stock=true and ?low_stock=false. "true" lists only
+products with fewer than 5 units in stock; "false" lists only those with 5
+or more. Reject any other value with a 400 and the bad_query error code.
+Leave the unfiltered response unchanged.
+"""
+context = ["product_store.go", "respond.go"]
+target = "product_handlers.go"
+hidden_test = "hidden_ho_products_filter_low_stock_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

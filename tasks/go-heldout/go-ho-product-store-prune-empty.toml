@@ -1,0 +1,13 @@
+id = "go-ho-product-store-prune-empty"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+Add a PruneEmpty method to ProductStore that deletes every product whose
+stock is zero and returns how many products it removed, as an int. It
+takes no arguments.
+"""
+context = ["user_store.go"]
+target = "product_store.go"
+hidden_test = "hidden_ho_product_store_prune_empty_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

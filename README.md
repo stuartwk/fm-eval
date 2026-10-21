@@ -36,6 +36,40 @@ pass@1 is first attempts only, 18 tasks x 3 runs per language.
 | Plus API cheat sheet ("skill") | 16/54 (30%) | 17/54 (31%) |
 | Best harness (merge + skill + repair + wiring) | **23/54 (43%)** | **27/54 (50%)** |
 | Best harness plus up to 2 fresh retries | ~27/54 (50%) | ~30/54 (56%) |
+| Edit recipes, falling back to the best harness | **33/54 (61%)** | not ported |
+
+### Edit recipes: the model fills in a form, the harness writes the code
+
+For common kinds of edit (a store method that filters by a field, a query
+filter on a list endpoint, normalizing a request field) the harness keeps a
+code template. The model only answers two guided-generation questions:
+which recipe fits the request, and what its slots are (which field, which
+allowed values, which error code). Every slot that names code is an enum
+built from the codebase. The harness checks the slots against the request
+text, renders the template, and falls back to the best full-file config
+for anything no recipe covers.
+
+| Go, non-test tasks, 3 runs each | Best harness | Recipes |
+|---|---|---|
+| Original 15 tasks | 23/45 (51%) | **33/45 (73%)** |
+| 9 held-out tasks, written after the recipes were frozen | 8/27 (30%) | **16/27 (59%)** |
+
+- **The model is good at filling slots.** The 4 original tasks it never
+  solved by writing code went from 1/12 to 11/12, and applied recipes
+  passed 24 of 27 times across both sets.
+- **It is bad at picking a recipe and at checking its own answer.**
+  Without checks it routed lookalike tasks into the wrong recipe and scored
+  worse than the baseline (18/45). Asked yes or no whether a plain-English
+  description of the edit matched the request, it approved almost
+  everything, including an inverted true/false condition.
+- **Deterministic checks fixed routing:** slot values must appear in the
+  request, error codes are narrowed to those it names, a signature the
+  request spells out must match, and a request that names a new route is
+  never treated as a change to an existing endpoint. On the held-out set,
+  none of the 3 lookalike tasks got a recipe, and no task scored below
+  its fallback.
+- The gain is limited to edit kinds with a recipe. Test-writing and new
+  files still score 0.
 
 What the model gets wrong (hand-tagged failures on the 9 tasks that fail
 in both languages):
@@ -63,16 +97,26 @@ What helped, and what did not:
 - Did not help: rich diagnostic feedback on retries, patch-style retries
   (showing the previous attempt anchors the model; 40 of 115 replies were
   near-copies of the broken code), a did-you-mean rename repair (wrong names
-  reflect a wrong model of the code, not typos), and guided generation
-  (runs away until the context window overflows on full files).
+  reflect a wrong model of the code, not typos), guided generation of
+  whole files (runs away until the context window overflows), and short
+  focused prompts holding only the relevant declarations (2/15 vs 0/15 on
+  the logic failures: with all the needed information in view, the model
+  still misreads what to compute).
 
 **Conclusion:** with oracle context and a lot of harness support, the
-model completes roughly half of small single-file edits. It cannot create
-new files or write correct tests, and retries do not converge, because each
-full rewrite introduces new errors. A coding agent built on this model
-would need the harness to do most of the structural work (symbol-level
-edits, merging, wiring, repair) and use the model only for small, local
-code generation.
+model completes roughly half of small single-file edits when it writes the
+code. It cannot create new files or write correct tests, and retries do
+not converge, because each full rewrite introduces new errors. Its
+remaining failures are mostly misreadings of what to compute, which
+neither better context nor constrained identifier choices would fix.
+
+Where it is strong is reading a small request and answering narrow, typed
+questions about it. Used that way, with the harness owning the code
+(templates) and the checking (deterministic checks against the request),
+it handles the edit kinds the harness knows with few errors, and the result
+held on tasks written after the design was frozen. A coding agent built on
+this model would be a library of edit recipes with the model as the layer
+that reads the request, not a model that writes code.
 
 `CLAUDE.md` holds the full, dated research log with every finding and the
 reasoning behind each harness change. The project was built with Claude
@@ -107,6 +151,17 @@ python3 -m venv .venv
   --edit-format full_merge --skill skills/py-shop-api.md --repair --wire
 ```
 
+```sh
+# edit recipes on the 15 non-test Go tasks (falls back to the recorded best config)
+.venv/bin/python recipes.py --runs 3
+
+# held-out tasks: best config first, then recipes with it as the fallback
+.venv/bin/python run_eval.py --heldout --lang go --runs 3 --attempts 1 \
+  --edit-format full_merge --skill auto --skill skills/go-shop-conventions.md \
+  --repair --wire
+.venv/bin/python recipes.py --heldout --runs 3 --fallback results/<that run>.jsonl
+```
+
 Each run writes a timestamped JSONL file to `results/` with every prompt
 size, output, status and log tail. The recorded runs behind the numbers
 above are committed there.
@@ -119,6 +174,8 @@ above are committed there.
 | `regrade.py` | Regrades recorded outputs after a harness change. |
 | `retry_ab.py` | Compares retry styles on the same failed first attempts. |
 | `tag_failures.py` | Heuristic failure tags per config and tier. |
+| `recipes.py` | Edit recipes: the model routes and fills slots, the harness writes the code. |
+| `focused_ab.py` | Logic-failure tasks with a minimal prompt instead of whole files. |
 | `tools/goapi` | Generates a compact API reference from a Go package. |
 | `tools/gomerge` | Merges a snippet of Go declarations into a file. |
 
@@ -127,6 +184,7 @@ above are committed there.
 ```
 fixtures/<lang>/    small repo per language (builds, tests pass)
 tasks/<lang>/       one TOML per task
+tasks/go-heldout/   held-out tasks (--heldout), excluded from the main numbers
 hidden/<lang>/      grading tests and mutants, never shown to the model
 solutions/<lang>/   hand-written correct target per task
 skills/             API cheat sheets prepended with --skill

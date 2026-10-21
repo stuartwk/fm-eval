@@ -473,6 +473,7 @@ async def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang")
     ap.add_argument("--task")
+    ap.add_argument("--heldout", action="store_true", help="run the held-out tasks instead")
     ap.add_argument("--runs", type=int, default=1)
     ap.add_argument("--greedy", action="store_true")
     ap.add_argument("--temperature", type=float)
@@ -501,7 +502,7 @@ async def main():
         temperature=args.temperature,
     )
     static_skills = [Path(p).read_text() for p in args.skill if p != "auto"]
-    tasks = load_tasks(args.lang, args.task)
+    tasks = load_tasks(args.lang, args.task, args.heldout)
     if not tasks:
         sys.exit("No tasks matched.")
 

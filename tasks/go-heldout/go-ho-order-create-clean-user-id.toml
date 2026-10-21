@@ -1,0 +1,13 @@
+id = "go-ho-order-create-clean-user-id"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Some clients send user_id in upper case or padded with spaces, for example
+" USR_000001 ". When creating an order, clean up user_id by trimming the
+whitespace and lowercasing it before it is validated and looked up.
+"""
+context = ["user_store.go", "respond.go", "request.go"]
+target = "order_handlers.go"
+hidden_test = "hidden_ho_order_create_clean_user_id_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

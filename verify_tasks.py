@@ -16,10 +16,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--lang")
     ap.add_argument("--task")
+    ap.add_argument("--heldout", action="store_true", help="check the held-out tasks instead")
     args = ap.parse_args()
 
     ok = True
-    for task in load_tasks(args.lang, args.task):
+    for task in load_tasks(args.lang, args.task, args.heldout):
         sol_path = ROOT / "solutions" / task["lang"] / task["id"] / task["target"]
         if not sol_path.exists():
             print(f"FAIL {task['id']}: no solution at {sol_path.relative_to(ROOT)}")
