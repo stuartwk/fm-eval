@@ -44,9 +44,14 @@ MERGERS = {
 }
 
 
-def load_tasks(lang=None, task_id=None):
+def load_tasks(lang=None, task_id=None, heldout=False):
+    """Tasks under tasks/<lang>/, or with heldout=True only the held-out
+    set under tasks/<lang>-heldout/ (kept apart so the main numbers stay
+    comparable)."""
     tasks = []
     for path in sorted((ROOT / "tasks").glob("*/*.toml")):
+        if path.parent.name.endswith("-heldout") != heldout:
+            continue
         with open(path, "rb") as f:
             t = tomllib.load(f)
         if lang and t["lang"] != lang:

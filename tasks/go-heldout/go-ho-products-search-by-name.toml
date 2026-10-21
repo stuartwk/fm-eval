@@ -1,0 +1,15 @@
+id = "go-ho-products-search-by-name"
+lang = "go"
+kind = "modify"
+tier = "medium"
+instruction = """
+Add an endpoint GET /products/search?name=... that returns the single
+product whose name is exactly the given name. Respond 400 with the
+bad_query error code if name is missing, and a 404 (using the name as the
+id in the not-found message) if no product has that name. Name the handler
+handleSearchProducts and register it in productRoutes.
+"""
+context = ["product_store.go", "respond.go", "user_handlers.go"]
+target = "product_handlers.go"
+hidden_test = "hidden_ho_products_search_by_name_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

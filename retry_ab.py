@@ -37,7 +37,7 @@ def skill_text(skills, task):
 
 async def load_seeds(model, paths, edit_override):
     """First attempts that still fail after the current harness."""
-    tasks = {t["id"]: t for t in load_tasks()}
+    tasks = {t["id"]: t for t in load_tasks() + load_tasks(heldout=True)}
     seeds = []
     for path in paths:
         hdr = {}

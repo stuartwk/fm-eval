@@ -1,0 +1,13 @@
+id = "go-ho-user-create-email-max-length"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Reject user creation when the email is longer than 254 characters. Respond
+like the other validation failures (422, validation_failed) with the
+message "email: must be at most 254 characters".
+"""
+context = ["request.go", "respond.go"]
+target = "user_handlers.go"
+hidden_test = "hidden_ho_user_create_email_max_length_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

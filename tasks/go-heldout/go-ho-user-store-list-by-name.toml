@@ -1,0 +1,13 @@
+id = "go-ho-user-store-list-by-name"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Add UserStore.ListByName(name string) []User. It returns every user whose
+name is exactly name, ordered by ID, and an empty (non-nil) slice when
+nobody has that name.
+"""
+context = ["review_store.go"]
+target = "user_store.go"
+hidden_test = "hidden_ho_user_store_list_by_name_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

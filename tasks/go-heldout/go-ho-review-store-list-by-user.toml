@@ -1,0 +1,14 @@
+id = "go-ho-review-store-list-by-user"
+lang = "go"
+kind = "modify"
+tier = "easy"
+instruction = """
+Reviews need to be looked up per author. Give ReviewStore a
+ListByUser(userID string) []Review method that returns that user's reviews
+in ID order. When the user has written no reviews, return an empty slice
+rather than nil.
+"""
+context = ["order_store.go"]
+target = "review_store.go"
+hidden_test = "hidden_ho_review_store_list_by_user_test.go"
+test_cmd = ["go", "test", "-count=1", "./..."]

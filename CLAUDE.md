@@ -249,6 +249,18 @@ model's tests against mutants, for when existing tests would catch them.
   endpoint-modifying recipes are skipped when the request names a new
   route. Caveat: recipes and checks were designed on these same tasks;
   needs held-out tasks before the number means anything.
+- Held-out check (2026-10-21): 9 new Go tasks in tasks/go-heldout/ (run
+  with --heldout; excluded by default so the 18-task numbers stay
+  comparable), written after the recipes were frozen: 6 of recipe kinds on
+  other resources and fields, 3 lookalikes that should not route (a store
+  method that is not a filter, a new search route, a validation rule).
+  Best full-file config: 8/27 (results/20261021-211445). Recipes,
+  unchanged: 16/27 (results/recipes-20261021-212458). Applied recipes
+  passed 13/16, no lookalike was mis-applied, and nothing regressed below
+  its fallback. Misses: low_stock 0/3, where the model put the false
+  condition (Stock >= 5) in the slot for true, and the yes/no check
+  approved it; users-filter-name 2/3 rejected by grounding (the model
+  invented an allowed value "exact_match"), safely falling back.
 - Negative result (2026-10-06): a did-you-mean rename repair (unknown
   attribute or identifier -> closest valid name) fired 7 times on recorded
   outputs and rescued 0: each renamed call was still wrong (missing

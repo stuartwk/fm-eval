@@ -13,6 +13,7 @@ that cannot be applied, and edits not confirmed fall back to the best full-file 
 combined score compares directly with it.
 
 Go only. Usage: .venv/bin/python recipes.py [--runs 3] [--task ID] [--greedy]
+       [--heldout --fallback results/<best config run on the held-out tasks>.jsonl]
 """
 
 import argparse
@@ -413,10 +414,9 @@ async def run_recipe(model, task, options, confirm=True):
 # ---------------------------------------------------------------- runner
 
 
-async def fallback_results(model):
+async def fallback_results(model, src):
     """(task, run) -> passed, for the best full-file config after repair + wire."""
     from retry_ab import load_seeds
-    src = "results/20261005-203213.jsonl"
     failed = {(s["task"]["id"], s["run"]) for s in await load_seeds(model, [src], None)}
     runs = {(r["task"], r["run"]) for r in map(json.loads, open(ROOT / src))
             if r["type"] == "attempt" and r["attempt"] == 1}
@@ -428,6 +428,9 @@ async def main():
     ap.add_argument("--runs", type=int, default=3)
     ap.add_argument("--task")
     ap.add_argument("--greedy", action="store_true")
+    ap.add_argument("--heldout", action="store_true", help="run the held-out tasks instead")
+    ap.add_argument("--fallback", default="results/20261005-203213.jsonl",
+                    help="run_eval results of the best full-file config on the same tasks")
     ap.add_argument("--no-confirm", action="store_true", help="skip the yes/no confirmation step")
     args = ap.parse_args()
     model = fm.SystemLanguageModel()
@@ -435,15 +438,15 @@ async def main():
     if not ok:
         raise SystemExit(f"model unavailable: {reason}")
     options = fm.GenerationOptions(sampling=fm.SamplingMode.greedy()) if args.greedy else fm.GenerationOptions()
-    tasks = [t for t in load_tasks("go") if t["tier"] != "test" and (not args.task or t["id"] == args.task)]
+    tasks = [t for t in load_tasks("go", heldout=args.heldout) if t["tier"] != "test" and (not args.task or t["id"] == args.task)]
     print("regrading the fallback config...", flush=True)
-    fallback = await fallback_results(model)
+    fallback = await fallback_results(model, args.fallback)
     out = ROOT / "results" / f"recipes-{datetime.now():%Y%m%d-%H%M%S}.jsonl"
     log = open(out, "w")
     log.write(json.dumps({"type": "run", "started": datetime.now().isoformat(), "runs": args.runs,
                           "tasks": [t["id"] for t in tasks], "sampling": "greedy" if args.greedy else "default",
                           "recipes": [r.name for r in RECIPES],
-                          "confirm": not args.no_confirm, "fallback": "results/20261005-203213.jsonl"}) + "\n")
+                          "confirm": not args.no_confirm, "fallback": args.fallback}) + "\n")
     rows = []
     for task in tasks:
         for run in range(1, args.runs + 1):
