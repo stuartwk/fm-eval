@@ -62,6 +62,8 @@ are plain functions over the fixture's own request and response types.
                      (merge, repair, wire) to seeds and retries alike.
 - focused_ab.py      Runs logic-failure tasks with a minimal prompt of
                      hand-picked declarations instead of whole files.
+- recipes.py         Edit recipes: model routes and fills slots, harness
+                     renders templates; falls back to the best config.
 - regrade.py         Regrades recorded outputs after a harness fix.
 - tag_failures.py    Heuristic failure tags per config and tier; spot-check
                      with --show TAG before trusting the counts.
@@ -229,6 +231,24 @@ model's tests against mutants, for when existing tests would catch them.
   the handler unchanged; filter-status invented p.Status, an options
   struct, and helpers; in_stock kept the wrong no-param semantics; health
   dropped the *Server receivers. Prompt noise is not the main cause.
+- Edit recipes (2026-10-21, recipes.py, results/recipes-20261021-205330):
+  the model picks a recipe (store_filter_method, list_query_filter,
+  normalize_request_field, or none) and fills its slots with guided JSON
+  whose code-naming slots are enums from the codebase; the harness renders
+  a template in the fixture's conventions. Unrouted, unapplicable, or
+  unconfirmed edits fall back to the best config's recorded result.
+  15 non-test Go tasks x 3: 33/45 vs 23/45 (61% vs 43% on all 54, since
+  test tasks stay 0). Slot filling is the strength: 11/11 applied edits
+  passed, and the 4 target tasks went from 1/12 to 11/12. Routing is the
+  weakness: the first run (no checks) misrouted 5 other tasks and scored
+  18/45. A yes/no self-check on a plain-English description of the edit
+  approved almost everything ("Delete returns every Review whose ID equals
+  id": yes). What fixed routing was deterministic checks against the
+  request text: free-text slots must appear in the request, error codes
+  are narrowed to those it names, a stated signature must match, and
+  endpoint-modifying recipes are skipped when the request names a new
+  route. Caveat: recipes and checks were designed on these same tasks;
+  needs held-out tasks before the number means anything.
 - Negative result (2026-10-06): a did-you-mean rename repair (unknown
   attribute or identifier -> closest valid name) fired 7 times on recorded
   outputs and rescued 0: each renamed call was still wrong (missing
