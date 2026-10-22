@@ -66,6 +66,8 @@ are plain functions over the fixture's own request and response types.
                      renders templates; falls back to the best config.
 - best_of_n.py       n candidates, picked by compile, existing tests, and
                      model-written HTTP checks (no hidden tests).
+- tool_agent.py      Tool-calling agent (lookup, write_code, try_request), one
+                     subprocess per session.
 - regrade.py         Regrades recorded outputs after a harness fix.
 - tag_failures.py    Heuristic failure tags per config and tier; spot-check
                      with --show TAG before trusting the counts.
@@ -269,15 +271,40 @@ model's tests against mutants, for when existing tests would catch them.
   the harness renders them as a Go test; the pick is the candidate that
   compiles, keeps the fixture's tests, and passes the most checks. Picked
   22/33, one random candidate 20.6/33, any of 5 23/33. The checks did
-  nothing: the reference solution passes only 42/109 of them (all wrong
-  on health, review-handlers, user-orders), and they never separated two
-  candidates that compiled. The whole gain came from the compile and
+  nothing: on the 8 modify tasks the reference solution passes 42/72 of
+  them, and they never separated two candidates that compiled. (Harness
+  bug: the checks go through s.Routes(), which new-file handlers are not
+  wired into, so on health, review-handlers and user-orders every check
+  hit a 404. All 15 candidates failed the hidden tests there anyway, so
+  the totals stand.) The whole gain came from the compile and
   existing-test filter (first such candidate: also 22/33). The one
   recoverable miss (user-lookup run 1) was a tie the checks could not
   break. Ceiling is low anyway: 4 tasks are near 5/5 or 0/5 per run, and
   the failures (health, review-handlers, user-orders) fail in all 15
   candidates, so sampling more does not find a correct one. The combined
   recipe pipeline stays at 33/45.
+- Tool-calling agent (2026-10-22, tool_agent.py, results/agent-20261022-
+  093104): one session per attempt with fm.Tool tools: lookup (declaration
+  source), write_code (merge into a harness-held working copy, repair,
+  compile, existing tests, plus checks on signatures and routes the
+  request spells out), try_request (one request to a seeded server; the
+  model states expected status, seed IDs, and an optional JSON fragment,
+  and the harness reports mismatches). Prompt: instruction, context files,
+  API sheet, conventions, seed data, checklist. 15 non-test tasks x 3:
+  6/45 vs 23/45 for the best full-file config. Replaying the writes, only
+  7 sessions ever had a passing working copy and 5 of those passed on the
+  first write; feedback turned fail into pass only on compile errors
+  (user-store-update-name 2/3), and adjust-stock regressed from pass to
+  fail. Causes: 20/45 sessions overflowed the 8K window (the transcript
+  carries every write); code written as a tool argument is worse than a
+  plain reply (it echoes context declarations, drops locks, copies
+  writeJSON into the target), even on tasks the plain config passes 5/5
+  (order-get 0/3); 80 of 133 writes did not compile and the model often
+  resubmitted the same error. Probing is good (36 of 45 requests found a
+  mismatch, mostly wrong status) but the model does not turn a mismatch
+  into the right fix. SDK note: LanguageModelSession does not keep
+  references to its tools; if they are garbage collected the process
+  segfaults on the next tool call, so hold them in a variable.
 - Negative result (2026-10-06): a did-you-mean rename repair (unknown
   attribute or identifier -> closest valid name) fired 7 times on recorded
   outputs and rescued 0: each renamed call was still wrong (missing
