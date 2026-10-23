@@ -64,6 +64,10 @@ are plain functions over the fixture's own request and response types.
                      hand-picked declarations instead of whole files.
 - recipes.py         Edit recipes: model routes and fills slots, harness
                      renders templates; falls back to the best config.
+- best_of_n.py       n candidates, picked by compile, existing tests, and
+                     model-written HTTP checks (no hidden tests).
+- tool_agent.py      Tool-calling agent (lookup, write_code, try_request), one
+                     subprocess per session.
 - regrade.py         Regrades recorded outputs after a harness fix.
 - tag_failures.py    Heuristic failure tags per config and tier; spot-check
                      with --show TAG before trusting the counts.
@@ -261,6 +265,60 @@ model's tests against mutants, for when existing tests would catch them.
   condition (Stock >= 5) in the slot for true, and the yes/no check
   approved it; users-filter-name 2/3 rejected by grounding (the model
   invented an allowed value "exact_match"), safely falling back.
+- Best-of-n (2026-10-22, best_of_n.py, results/bestofn-20261022-070331):
+  the 11 non-test tasks recipes do not cover, 3 runs x 5 candidates from
+  the best config. The model writes 3 to 6 HTTP checks as guided JSON and
+  the harness renders them as a Go test; the pick is the candidate that
+  compiles, keeps the fixture's tests, and passes the most checks. Picked
+  22/33, one random candidate 20.6/33, any of 5 23/33. The checks did
+  nothing: on the 8 modify tasks the reference solution passes 42/72 of
+  them, and they never separated two candidates that compiled. (Harness
+  bug: the checks go through s.Routes(), which new-file handlers are not
+  wired into, so on health, review-handlers and user-orders every check
+  hit a 404. All 15 candidates failed the hidden tests there anyway, so
+  the totals stand.) The whole gain came from the compile and
+  existing-test filter (first such candidate: also 22/33). The one
+  recoverable miss (user-lookup run 1) was a tie the checks could not
+  break. Ceiling is low anyway: 4 tasks are near 5/5 or 0/5 per run, and
+  the failures (health, review-handlers, user-orders) fail in all 15
+  candidates, so sampling more does not find a correct one. The combined
+  recipe pipeline stays at 33/45.
+- Tool-calling agent (2026-10-22, tool_agent.py, results/agent-20261022-
+  093104): one session per attempt with fm.Tool tools: lookup (declaration
+  source), write_code (merge into a harness-held working copy, repair,
+  compile, existing tests, plus checks on signatures and routes the
+  request spells out), try_request (one request to a seeded server; the
+  model states expected status, seed IDs, and an optional JSON fragment,
+  and the harness reports mismatches). Prompt: instruction, context files,
+  API sheet, conventions, seed data, checklist. 15 non-test tasks x 3:
+  6/45 vs 23/45 for the best full-file config. Replaying the writes, only
+  7 sessions ever had a passing working copy and 5 of those passed on the
+  first write; feedback turned fail into pass only on compile errors
+  (user-store-update-name 2/3), and adjust-stock regressed from pass to
+  fail. Causes: 20/45 sessions overflowed the 8K window (the transcript
+  carries every write); code written as a tool argument is worse than a
+  plain reply (it echoes context declarations, drops locks, copies
+  writeJSON into the target), even on tasks the plain config passes 5/5
+  (order-get 0/3); 80 of 133 writes did not compile and the model often
+  resubmitted the same error. Probing is good (36 of 45 requests found a
+  mismatch, mostly wrong status) but the model does not turn a mismatch
+  into the right fix. SDK note: LanguageModelSession does not keep
+  references to its tools; if they are garbage collected the process
+  segfaults on the next tool call, so hold them in a variable.
+- Summarize and restart (2026-10-23, tool_agent.py --sessions 3,
+  results/agent-20261023-074430): when a session overflows or ends with
+  the code failing the harness checks or its last routed request
+  mismatching, a new session starts from the working copy plus a handoff
+  (last write result, open mismatches, up to 4 errors already hit, marked
+  do not repeat). Session 1 is unchanged. 9/45 final; replaying session 1
+  alone also gives 9/45 (yesterday's single-session run: 6/45, so the
+  difference is sampling). 31 attempts restarted (3 already passing,
+  restarted only because the model's own expectation was wrong; none
+  regressed); of the 28 failing ones, 0 were rescued. Later sessions
+  repeat the same errors (for example 15 consecutive "undefined: s"
+  writes across three sessions on user-orders) and overflow again, since
+  the prompt alone takes 3.2K to 5.6K of the 8K window. More context does
+  not help; the model does not use feedback.
 - Negative result (2026-10-06): a did-you-mean rename repair (unknown
   attribute or identifier -> closest valid name) fired 7 times on recorded
   outputs and rescued 0: each renamed call was still wrong (missing

@@ -71,6 +71,35 @@ for anything no recipe covers.
 - The gain is limited to edit kinds with a recipe. Test-writing and new
   files still score 0.
 
+### Best-of-n and a tool-calling agent: neither beats the plain config
+
+Two attempts to let the model check its own work, on the Go non-test
+tasks, 3 runs each:
+
+| Approach | Result |
+|---|---|
+| Best-of-5 on the 11 tasks recipes do not cover, picked by compile, existing tests and model-written HTTP checks | 22/33 picked vs 20.6/33 for one random candidate; 23/33 if the best of 5 were always picked |
+| Tool-calling agent (`lookup`, `write_code`, `try_request`), one session | 6/45 |
+| Same agent, restarting with a handoff summary when a session overflows or ends unfinished (up to 3 sessions) | 9/45, all 9 from the first session; 0 of 28 failing attempts rescued |
+| Best full-file config, for comparison | 23/45 |
+
+- **Best-of-n:** the small gain came entirely from discarding candidates
+  that do not compile or that break the existing tests. The model's checks
+  never ranked two compiling candidates differently, and the correct
+  solution passed only 42 of 72 of them. Sampling more does not find new
+  answers either: each task's candidates tend to be all right or all wrong.
+- **Tool-calling agent:** the SDK's tool calling works, and the model
+  probes sensibly (36 of 45 test requests found a real mismatch), but it
+  does not turn a mismatch into the right fix. Code it writes as a tool
+  argument is worse than code in a plain reply (it re-declares existing
+  types and copies helpers into the target), 80 of 133 writes did not
+  compile, and it often resubmits the same broken code. Fresh sessions with
+  a summary of what failed repeat the same errors, so the 8K context
+  window is not the bottleneck.
+- SDK note: `LanguageModelSession` does not keep references to its tools.
+  If Python garbage-collects them, the process segfaults on the next tool
+  call, so keep them in a variable.
+
 What the model gets wrong (hand-tagged failures on the 9 tasks that fail
 in both languages):
 
@@ -101,12 +130,16 @@ What helped, and what did not:
   whole files (runs away until the context window overflows), and short
   focused prompts holding only the relevant declarations (2/15 vs 0/15 on
   the logic failures: with all the needed information in view, the model
-  still misreads what to compute).
+  still misreads what to compute), model-written checks for picking among
+  candidates, and agent loops with compiler and HTTP feedback, with or
+  without restarts.
 
 **Conclusion:** with oracle context and a lot of harness support, the
 model completes roughly half of small single-file edits when it writes the
-code. It cannot create new files or write correct tests, and retries do
-not converge, because each full rewrite introduces new errors. Its
+code. It cannot create new files or write correct tests, and neither
+retries nor agent loops converge: each rewrite introduces new errors, and
+the model does not act correctly on feedback even when the feedback is
+right. Its
 remaining failures are mostly misreadings of what to compute, which
 neither better context nor constrained identifier choices would fix.
 
@@ -155,6 +188,13 @@ python3 -m venv .venv
 # edit recipes on the 15 non-test Go tasks (falls back to the recorded best config)
 .venv/bin/python recipes.py --runs 3
 
+# best-of-n on the tasks recipes do not cover
+.venv/bin/python best_of_n.py --n 5 --runs 3
+
+# tool-calling agent; --sessions 3 restarts with a handoff summary
+.venv/bin/python tool_agent.py --runs 3
+.venv/bin/python tool_agent.py --runs 3 --sessions 3
+
 # held-out tasks: best config first, then recipes with it as the fallback
 .venv/bin/python run_eval.py --heldout --lang go --runs 3 --attempts 1 \
   --edit-format full_merge --skill auto --skill skills/go-shop-conventions.md \
@@ -176,6 +216,8 @@ above are committed there.
 | `tag_failures.py` | Heuristic failure tags per config and tier. |
 | `recipes.py` | Edit recipes: the model routes and fills slots, the harness writes the code. |
 | `focused_ab.py` | Logic-failure tasks with a minimal prompt instead of whole files. |
+| `best_of_n.py` | n candidates, picked by compile, existing tests and model-written HTTP checks. |
+| `tool_agent.py` | Tool-calling agent; each session runs in its own subprocess. |
 | `tools/goapi` | Generates a compact API reference from a Go package. |
 | `tools/gomerge` | Merges a snippet of Go declarations into a file. |
 
@@ -195,4 +237,8 @@ results/            recorded runs
 
 TypeScript, Swift and Rust fixtures were planned but not built, as were
 slicing strategies for files larger than the context window and a
-calibration run against a larger model.
+calibration run against a larger model. Apple's larger Private Cloud
+Compute model (32K context, adjustable reasoning) uses the same
+`LanguageModelSession` API but is available only from Swift, in an App
+Store, TestFlight or ad hoc build with a managed entitlement, so that
+calibration needs a small Swift app.
