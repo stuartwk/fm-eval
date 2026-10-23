@@ -351,7 +351,7 @@ def tools_for(agent):
     return [Lookup(), WriteCode(), TryRequest()]
 
 
-def build_prompt(task, conventions, context=True):
+def build_prompt(task, conventions, context=True, resume=None):
     parts = [f"## Task\n{task['instruction'].strip()}\n"]
     if context:
         for f in task["context"]:
@@ -363,19 +363,62 @@ def build_prompt(task, conventions, context=True):
     if reqs:
         parts.append("## Checklist (write_code checks these)\n" + "\n".join(f"- {d}" for d, _ in reqs))
     current = read_fixture(task, task["target"])
-    if current is None:
+    if resume and resume["working"] != (current or "package shop\n"):
+        parts.append(f"## Current {task['target']} (your work so far)\n{resume['working']}")
+        parts.append("## Where you left off\n" + resume["notes"] + "\nContinue by calling write_code or try_request.")
+    elif current is None:
         parts.append(f"{task['target']} does not exist yet. Create it by calling write_code.")
     else:
         parts.append(f"## Current {task['target']}\n{current}\nEdit it by calling write_code.")
     return "\n".join(parts)
 
 
-async def child(task_id, heldout, no_context, state_path):
+def unrouted(result):
+    """A request no route matched (the model probed an endpoint that does
+    not exist); it says nothing about the code under change."""
+    return "body: 404 page not found" in result or "-> status 405" in result
+
+
+def handoff_notes(state, tried):
+    """A short summary for the next session: where the code stands, the
+    request mismatches still open, and errors already run into. tried
+    carries the errors across sessions and is updated in place."""
+    calls = state.get("calls", [])
+    writes = [c for c in calls if c["tool"] == "write_code"]
+    lines = []
+    if writes:
+        lines.append("Last write_code result: " + "\n".join(writes[-1]["result"].splitlines()[:4]))
+    latest = {c["name"]: c["result"] for c in calls if c["tool"] == "try_request"}
+    mism = [f"- {r.splitlines()[0]}: {r.split('MISMATCH: ', 1)[1].split('. If your', 1)[0]}"
+            for r in latest.values() if "MISMATCH" in r and not unrouted(r)]
+    if mism:
+        lines.append("Requests that did not match the task the last time you tried them:\n" + "\n".join(mism[:3]))
+    for c in writes:
+        if not c["result"].endswith("tests pass."):
+            first = next((l for l in c["result"].splitlines()[1:] if l.startswith("- ")), "")
+            if first and first not in tried:
+                tried.append(first)
+    if tried:
+        lines.append("Errors earlier writes ran into (do not repeat them):\n" + "\n".join(tried[-4:]))
+    return "\n".join(lines) or "No progress yet."
+
+
+def session_done(state):
+    """A session's work is finished when the code passes the harness checks
+    and the last routed request the model tried matched its expectation."""
+    requests = [c for c in state.get("calls", []) if c["tool"] == "try_request" and not unrouted(c["result"])]
+    return state.get("status") == "pass" and not (requests and "MISMATCH" in requests[-1]["result"])
+
+
+async def child(task_id, heldout, no_context, state_path, resume_path=None):
     """One agent session, run in its own process: the SDK segfaults now and
     then during tool-calling sessions."""
     task = next(t for t in load_tasks("go", heldout=heldout) if t["id"] == task_id)
     conventions = (ROOT / "skills" / "go-shop-conventions.md").read_text()
     agent = Agent(task)
+    resume = json.loads(Path(resume_path).read_text()) if resume_path else None
+    if resume:
+        agent.working = resume["working"]
     agent.state_path = state_path
     agent.save(error="crashed before the first tool call")
     # Keep references to the model and tools: the session does not, and the
@@ -384,16 +427,20 @@ async def child(task_id, heldout, no_context, state_path):
     session = fm.LanguageModelSession(instructions=INSTRUCTIONS, model=model, tools=tools)
     reply, err = None, None
     try:
-        reply = await asyncio.wait_for(session.respond(build_prompt(task, conventions, not no_context)), GEN_TIMEOUT)
+        reply = await asyncio.wait_for(session.respond(build_prompt(task, conventions, not no_context, resume)),
+                                       GEN_TIMEOUT)
     except Exception as e:
         err = f"{type(e).__name__}: {e}"[:300]
     agent.save(reply=reply, error=err)
 
 
-def run_session(task, args):
+def run_session(task, args, resume=None):
     with tempfile.TemporaryDirectory(prefix="fmeval-agent-state-") as tmp:
         state_path = Path(tmp) / "state.json"
         cmd = [sys.executable, __file__, "--child", task["id"], "--state", str(state_path)]
+        if resume:
+            (Path(tmp) / "resume.json").write_text(json.dumps(resume))
+            cmd += ["--resume", str(Path(tmp) / "resume.json")]
         cmd += ["--heldout"] * args.heldout + ["--no-context"] * args.no_context
         t0 = time.monotonic()
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=GEN_TIMEOUT + 300)
@@ -412,9 +459,12 @@ async def main():
     ap.add_argument("--no-context", action="store_true", help="leave the task's context files out of the prompt")
     ap.add_argument("--child", help=argparse.SUPPRESS)
     ap.add_argument("--state", help=argparse.SUPPRESS)
+    ap.add_argument("--resume", help=argparse.SUPPRESS)
+    ap.add_argument("--sessions", type=int, default=1,
+                    help="restart with a handoff summary up to this many sessions per attempt")
     args = ap.parse_args()
     if args.child:
-        return await child(args.child, args.heldout, args.no_context, args.state)
+        return await child(args.child, args.heldout, args.no_context, args.state, args.resume)
     model = fm.SystemLanguageModel()
     ok, reason = model.is_available()
     if not ok:
@@ -425,7 +475,7 @@ async def main():
     out = ROOT / "results" / f"agent-{datetime.now():%Y%m%d-%H%M%S}.jsonl"
     log = open(out, "w")
     log.write(json.dumps({"type": "run", "started": datetime.now().isoformat(), "runs": args.runs,
-                          "tasks": [t["id"] for t in tasks], "sampling": "default", "max_writes": MAX_WRITES,
+                          "tasks": [t["id"] for t in tasks], "sampling": "default", "max_writes": MAX_WRITES, "sessions": args.sessions,
                           "tools": ["lookup", "write_code", "try_request"],
                           "prompt": "instruction + " + ("" if args.no_context else "context + ")
                           + "auto + conventions + seed + checklist + target"})
@@ -435,9 +485,24 @@ async def main():
         prompt = build_prompt(task, conventions, not args.no_context)
         tokens = await model.token_count(prompt)
         for run in range(1, args.runs + 1):
-            state, secs = await asyncio.to_thread(run_session, task, args)
-            calls, err = state.get("calls", []), state.get("error")
-            content = state["working"] if state.get("writes") else None
+            sessions, resume, wrote, secs, notes, tried = [], None, False, 0.0, [], []
+            for _ in range(args.sessions):
+                state, t = await asyncio.to_thread(run_session, task, args, resume)
+                secs += t
+                sessions.append(state)
+                wrote = wrote or bool(state.get("writes"))
+                if session_done(state) or "working" not in state:
+                    break
+                resume = {"working": state["working"],
+                          "notes": handoff_notes(state, tried)}
+                notes.append(resume["notes"])
+            secs = round(secs, 2)
+            calls = [c for st in sessions for c in st.get("calls", []) + [{"tool": "restart", "result": ""}]][:-1]
+            err = "; ".join(st["error"] for st in sessions if st.get("error")) or None
+            state = {**sessions[-1], "writes": sum(st.get("writes", 0) for st in sessions),
+                     "requests": sum(st.get("requests", 0) for st in sessions),
+                     "mismatches": sum(st.get("mismatches", 0) for st in sessions)}
+            content = state["working"] if wrote else None
             result = grade(task, content) if content else {"status": "no_write", "log_tail": ""}
             wiring = []
             if content and result["status"] not in ("pass",):
@@ -447,14 +512,16 @@ async def main():
             passes += result["status"] == "pass"
             rec = {"type": "attempt", "task": task["id"], "run": run, "prompt_tokens": tokens, "gen_seconds": secs,
                    "status": result["status"], "session_status": state.get("status"), "writes": state.get("writes", 0),
-                   "lookups": sum(c["tool"] == "lookup" for c in calls), "requests": state.get("requests", 0),
+                   "lookups": sum(c["tool"] == "lookup" for c in calls),
+                   "restarts": len(sessions) - 1, "requests": state.get("requests", 0),
                    "mismatches": state.get("mismatches", 0),
-                   "error": err, "reply": state.get("reply"), "calls": calls, "wiring": wiring, "graded": content, "log_tail": result["log_tail"]}
+                   "error": err, "reply": state.get("reply"), "calls": calls, "sessions": len(sessions),
+                   "handoffs": notes, "wiring": wiring, "graded": content, "log_tail": result["log_tail"]}
             log.write(json.dumps(rec) + "\n")
             log.flush()
-            trail = " ".join("L" if c["tool"] == "lookup" else ("R!" if "MISMATCH" in c["result"] else "R") if c["tool"] == "try_request" else "w+" if c["result"].endswith("tests pass.") else
+            trail = " ".join("|" if c["tool"] == "restart" else "L" if c["tool"] == "lookup" else ("R!" if "MISMATCH" in c["result"] else "R") if c["tool"] == "try_request" else "w+" if c["result"].endswith("tests pass.") else
                              "w?" if "asks for things" in c["result"] else "w-" for c in calls)
-            print(f"{task['id']:32s} run {run} {tokens:5d} tok {secs:6.1f}s  {result['status']:10s} "
+            print(f"{task['id']:32s} run {run} {tokens:5d} tok {secs:6.1f}s  {result['status']:10s} s{len(sessions)} "
                   f"[{trail}]{'  ERR ' + err[:60] if err else ''}", flush=True)
     n = len(tasks) * args.runs
     print(f"\npass@1 {passes}/{n}  ->  {out.relative_to(ROOT)}")

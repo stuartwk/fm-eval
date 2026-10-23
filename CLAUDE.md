@@ -305,6 +305,20 @@ model's tests against mutants, for when existing tests would catch them.
   into the right fix. SDK note: LanguageModelSession does not keep
   references to its tools; if they are garbage collected the process
   segfaults on the next tool call, so hold them in a variable.
+- Summarize and restart (2026-10-23, tool_agent.py --sessions 3,
+  results/agent-20261023-074430): when a session overflows or ends with
+  the code failing the harness checks or its last routed request
+  mismatching, a new session starts from the working copy plus a handoff
+  (last write result, open mismatches, up to 4 errors already hit, marked
+  do not repeat). Session 1 is unchanged. 9/45 final; replaying session 1
+  alone also gives 9/45 (yesterday's single-session run: 6/45, so the
+  difference is sampling). 31 attempts restarted (3 already passing,
+  restarted only because the model's own expectation was wrong; none
+  regressed); of the 28 failing ones, 0 were rescued. Later sessions
+  repeat the same errors (for example 15 consecutive "undefined: s"
+  writes across three sessions on user-orders) and overflow again, since
+  the prompt alone takes 3.2K to 5.6K of the 8K window. More context does
+  not help; the model does not use feedback.
 - Negative result (2026-10-06): a did-you-mean rename repair (unknown
   attribute or identifier -> closest valid name) fired 7 times on recorded
   outputs and rescued 0: each renamed call was still wrong (missing
